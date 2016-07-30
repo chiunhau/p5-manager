@@ -1,0 +1,22 @@
+{
+  "name": "p5-new",
+  "version": "0.0.1",
+  "description": "p5js template builder",
+  "main": "p5-new.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "p5": "p5-new.js"
+  },
+  "keywords": [
+    "p5"
+  ],
+  "author": "chiun hau you",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^2.9.0",
+    "mkdirp": "^0.5.1",
+    "touch": "^1.0.0"
+  }
+}
