@@ -1,5 +1,11 @@
 ## Quick Start
 
+### Step 0: Installation
+
+```bash
+$ npm install -g p5-new
+```
+
 ### Step 1: Create a collection
 
 ```bash

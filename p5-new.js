@@ -5,6 +5,9 @@ var mkdirp = require('mkdirp');
 var fs = require('fs');
 var path = require('path');
 var p5js = loadTemplate('p5.js');
+var p5dminjs = loadTemplate('p5.min.js');
+var p5domjs = loadTemplate('p5.dom.js');
+var p5soundjs = loadTemplate('p5.sound.js');
 var sketchjs = loadTemplate('sketch.js');
 var indexhtml = loadTemplate('index.html');
 
@@ -17,6 +20,9 @@ if(program.collection) {
 	mkdir(program.collection, function() {
 		mkdir(program.collection + '/libraries', function() {
 			write(program.collection + '/libraries/p5.js', p5js);
+			write(program.collection + '/libraries/p5.min.js', p5minjs);
+			write(program.collection + '/libraries/p5.sound.js', p5soundjs);
+			write(program.collection + '/libraries/p5.dom.js', p5domjs);
 		});
 	})
 }
