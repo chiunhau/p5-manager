@@ -1,6 +1,6 @@
 {
   "name": "p5-new",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A p5js template builder & sketches manager. Built for crazy p5js developers.",
   "main": "p5-new.js",
   "scripts": {
@@ -9,9 +9,9 @@
   "bin": {
     "p5": "p5-new.js"
   },
-  "repository" : { 
-    "type" : "git",
-    "url" : "git@github.com:chiunhau/p5-new.git"
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:chiunhau/p5-new.git"
   },
   "keywords": [
     "p5",
