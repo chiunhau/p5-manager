@@ -6,12 +6,12 @@ var fs = require('fs');
 var path = require('path');
 
 // load templates
-var p5js = loadTemplate('p5.js');
-var p5minjs = loadTemplate('p5.min.js');
-var p5domjs = loadTemplate('p5.dom.js');
-var p5soundjs = loadTemplate('p5.sound.js');
-var sketchjs = loadTemplate('sketch.js');
-var indexhtml = loadTemplate('index.html');
+var p5js = loadFile('libraries/p5.js');
+var p5minjs = loadFile('libraries/p5.min.js');
+var p5domjs = loadFile('libraries/p5.dom.js');
+var p5soundjs = loadFile('libraries/p5.sound.js');
+var sketchjs = loadFile('templates/sketch.js');
+var indexhtml = loadFile('templates/index.html');
 
 program
 	.command('new <collection>')
@@ -25,8 +25,8 @@ program
 				write(req + '/libraries/p5.sound.js', p5soundjs);
 				write(req + '/libraries/p5.dom.js', p5domjs);
 			});
-		})
-	})
+		});
+	});
 
 program
 	.command('generate <project>')
@@ -43,8 +43,8 @@ program.parse(process.argv);
 
 // code by https://github.com/expressjs/generator
 
-function loadTemplate(name) {
-  return fs.readFileSync(path.join(__dirname, 'static', name), 'utf-8');
+function loadFile(name) {
+  return fs.readFileSync(path.join(__dirname, name), 'utf-8');
 }
 
 function write(path, str, mode) {
