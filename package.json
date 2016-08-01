@@ -26,6 +26,7 @@
   "dependencies": {
     "commander": "^2.9.0",
     "mkdirp": "^0.5.1",
-    "touch": "^1.0.0"
+    "touch": "^1.0.0",
+    "exec": "^0.2.1"
   }
 }
