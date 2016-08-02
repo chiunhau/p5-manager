@@ -9,7 +9,6 @@ var path = require('path');
 var fs = require( 'fs' );
 var app = express();
 
-
 var serverPath = path.dirname(fs.realpathSync(__filename));
 var currentPath = process.cwd();
 app.use(express.static(currentPath));
@@ -17,9 +16,6 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-
-
-
 
 app.get('/', function(req, res) {
 	res.send('Welcome to p5-manager! we are here to host your p5 collection: ' + path.basename(currentPath));
@@ -44,14 +40,15 @@ function write(path, str, mode) {
   console.log('   \x1b[36mmodified\x1b[0m : ' + path);	
 }
 
-var server = {
-	app: app,
-	run: run
-}
-
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
+
+var server = {
+	app: app,
+	run: run
+}
+
 module.exports = server;

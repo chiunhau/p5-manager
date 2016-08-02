@@ -16,16 +16,14 @@ $ npm install -g p5-manager
 
 ```bash
 $ p5 new my_collection && cd my_collection
-$ npm install
 ```
 
 By excuting this command, it will create a collection directory and some p5 libraries to it. See the output log:
 
 ```bash
 # create : my_collection
-# create : my_collection/package.json
-# create : my_collection/gulpfile.js
 # create : my_collection/libraries
+# create : my_collection/libraries/p5.js
 # ...
 ```
 
@@ -33,9 +31,7 @@ By excuting this command, it will create a collection directory and some p5 libr
 
 ```bash
 $ p5 generate my_project
-```
-Or simply...
-```
+# or...
 $ p5 g my_project
 ```
 
@@ -49,23 +45,24 @@ This will generate a p5 project folder with some templates in it:
 
 ### Step 3: Start the server and do your magic!
 
-Now edit your sketch.js and go to localhost:5555, p5-manager will do the rest.
+Now edit your sketch.js and go to localhost:5555, and p5-manager will do the rest. (Notice: you should run `p5 server` in a collection directory, instead of a project diretory)
 
 ```bash
-npm start
+p5 server
+# or...
+p5 s
 ```
 
 ## Options
 ### Using Babel ES6
 
-Simply add a flag after the ```p5 generate <project>``` command. Then you'll have a `sketch.es6.js` file in the directory. Those files with `.es6.js` extension would be automatically compiled to `.js` everytime you save them.
+Simply add a flag after the `p5 generate` command. Then you'll have a `sketch.es6` file in the project. Those files with `.es6` extension would be automatically compiled to `.js` to the same directory everytime you save them. 
 
 ```bash 
 p5 g my_project_es6 --es6
 ```
 
 ##WIP
-- Get rid of gulp
 - GUI for switching between sketches
 - Support Coffeescript
 - Any idea? Open an [issue](https://github.com/chiunhau/p5-manager/issues)!
