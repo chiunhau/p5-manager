@@ -56,7 +56,7 @@ program
 		mkdir(req, function() {
 			if (opt.es6) {
 				mkdir(req, function() {
-					write(req + '/sketch.es6', sketchjs);	
+					write(req + '/sketch.es6.js', sketchjs);	
 				});
 			}
 			else {
