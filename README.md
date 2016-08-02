@@ -63,6 +63,13 @@ $ p5 g my_project_es6 --es6
 ```
 
 ##WIP
-- GUI for switching between projects
+- GUI for switching between projects, for demo ^^
 - Support Coffeescript
 - Any idea? Open an [issue](https://github.com/chiunhau/p5-manager/issues)!
+
+## About this project
+I'm a graphic design student who use p5js a lot so I need something to help me develop, manage or demo my p5js projects more efficiently. That's why p5-manager was made. 
+
+Inspired by [kadamwhite/p5-cli](https://github.com/kadamwhite/p5-cli) and [express/generator](https://github.com/expressjs/generator). 
+
+Distributed under the MIT license.
