@@ -6,7 +6,7 @@ p5-manager is a [p5js](https://github.com/processing/p5.js/) template builder an
 
 ## Quick Start
 
-### Step 0: Install p5-manager CLI tool globally from [npm](https://www.npmjs.com/package/p5-manager).
+### Step 0: Install from npm
 
 ```bash
 $ npm install -g p5-manager
@@ -45,12 +45,12 @@ This will generate a p5 project folder with some templates in it:
 
 ### Step 3: Start the server and do your magic!
 
-Now edit your sketch.js and go to localhost:5555, and p5-manager will do the rest. (Notice: you should run `p5 server` in a collection directory, instead of a project diretory)
+Now edit your sketch.js and go to localhost:5555, then p5-manager will do the rest. (Notice: you should run `p5 server` in a collection directory, instead of a project diretory)
 
 ```bash
-p5 server
+$ p5 server
 # or...
-p5 s
+$ p5 s
 ```
 
 ## Options
@@ -59,11 +59,10 @@ p5 s
 Simply add a flag after the `p5 generate` command. Then you'll have a `sketch.es6` file in the project. Those files with `.es6` extension would be automatically compiled to `.js` to the same directory everytime you save them. 
 
 ```bash 
-p5 g my_project_es6 --es6
+$ p5 g my_project_es6 --es6
 ```
 
 ##WIP
-- GUI for switching between sketches
+- GUI for switching between projects
 - Support Coffeescript
 - Any idea? Open an [issue](https://github.com/chiunhau/p5-manager/issues)!
-
