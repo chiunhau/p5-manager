@@ -24,16 +24,19 @@
   "author": "Chiun Hau You",
   "license": "MIT",
   "dependencies": {
-    "commander": "^2.9.0",
-    "exec": "^0.2.1",
+    "babel-core": "^6.11.4",
+    "babel-preset-es2015": "^6.9.0",
     "body-parser": "~1.15.1",
+    "chokidar": "^1.6.0",
+    "commander": "^2.9.0",
     "cookie-parser": "~1.4.3",
     "debug": "~2.2.0",
+    "exec": "^0.2.1",
     "express": "~4.13.4",
     "jade": "~1.11.0",
+    "mkdirp": "^0.5.1",
     "morgan": "~1.7.0",
     "serve-favicon": "~2.3.0",
-    "mkdirp": "^0.5.1",
     "touch": "^1.0.0"
   }
 }

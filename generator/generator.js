@@ -30,7 +30,7 @@ var generator = {
 	project: function(project, opt) {
 		mkdir(project, function() {
 			if (opt.es6) {
-				write(project + '/sketch.es6.js', templates.sketchjs);
+				write(project + '/sketch.es6', templates.sketchjs);
 			}
 			else {
 				write(project + '/sketch.js', templates.sketchjs);
