@@ -1,0 +1,30 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    title p5-manager
+    style.
+      html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+      }
+      
+      .panel {
+        width: 100%;
+        height: 50px;
+        position: fixed;
+        bottom: 0;
+        text-align: center;
+      }
+      iframe {
+        border: none;
+        height: 100%;
+      }
+  body
+    iframe(width='100%',height='100%', src= projectPath)
+    .panel
+      button.prev prev
+      button.next next
+    

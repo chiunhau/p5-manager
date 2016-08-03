@@ -14,8 +14,6 @@ var libraries = {
 	p5soundjs: loadFile('libraries/p5.sound.js')
 }
 
-// code by https://github.com/expressjs/generator
-
 var generator = {
 	collection: function(collection, opt) {
 		mkdir(collection, function() {
@@ -39,6 +37,8 @@ var generator = {
 		});
 	}
 }
+
+// the following code are taken from https://github.com/expressjs/generator
 
 function loadFile(name) {
   return fs.readFileSync(path.join(__dirname, name), 'utf-8');

@@ -5,21 +5,31 @@ var bodyParser = require('body-parser');
 var chokidar = require('chokidar');
 var babel = require('babel-core');
 var es2015 = require('babel-preset-es2015');
+var jade = require('jade');
 var path = require('path');
 var fs = require( 'fs' );
 var app = express();
 
 var serverPath = path.dirname(fs.realpathSync(__filename));
 var currentPath = process.cwd();
-app.use(express.static(currentPath));
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-
+app.set('view engine', 'jade');
+app.set('views', './gui');
 app.get('/', function(req, res) {
 	res.send('Welcome to p5-manager! we are here to host your p5 collection: ' + path.basename(currentPath));
-})
+});
+
+app.get('/:project', function(req, res, next) {
+	var projectPath = path.join('index.html');
+	console.log(projectPath);
+	res.render('index', {projectPath: projectPath});
+});
+
+app.use(express.static(currentPath));
 
 function run(port) {
 	app.listen(port, function () {
@@ -50,5 +60,7 @@ var server = {
 	app: app,
 	run: run
 }
+
+app.listen(5555);
 
 module.exports = server;
