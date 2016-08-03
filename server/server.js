@@ -5,7 +5,7 @@ var bodyParser = require('body-parser');
 var chokidar = require('chokidar');
 var babel = require('babel-core');
 var es2015 = require('babel-preset-es2015');
-var jade = require('jade');
+var pug = require('pug');
 var path = require('path');
 var fs = require( 'fs' );
 var app = express();
@@ -17,7 +17,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.set('view engine', 'jade');
+app.set('view engine', 'pug');
 app.set('views', './gui');
 app.get('/', function(req, res) {
 	res.send('Welcome to p5-manager! we are here to host your p5 collection: ' + path.basename(currentPath));
