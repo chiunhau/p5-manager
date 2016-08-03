@@ -61,6 +61,4 @@ var server = {
 	run: run
 }
 
-app.listen(5555);
-
 module.exports = server;
