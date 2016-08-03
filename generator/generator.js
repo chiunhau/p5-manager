@@ -19,7 +19,8 @@ var generator = {
 		var p5rc = {
 			name: collection,
 			projects: []
-		} 
+		};
+		
 		mkdir(collection, function() {
 			write(collection + '/.p5rc', JSON.stringify(p5rc, null, 2));
 			mkdir(collection + '/libraries', function() {
@@ -51,8 +52,6 @@ var generator = {
 function loadFile(name) {
   return fs.readFileSync(path.join(__dirname, name), 'utf-8');
 }
-
-
 
 function write(path, str, mode) {
   fs.writeFileSync(path, str, { mode: mode || 0666 });

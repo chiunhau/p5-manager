@@ -18,15 +18,18 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.set('view engine', 'pug');
-app.set('views', './gui');
+app.set('views', path.join(__dirname, '../gui'));
+
 app.get('/', function(req, res) {
 	res.send('Welcome to p5-manager! we are here to host your p5 collection: ' + path.basename(currentPath));
 });
 
 app.get('/:project', function(req, res, next) {
-	var projectPath = path.join('index.html');
-	console.log(projectPath);
-	res.render('index', {projectPath: projectPath});
+	var projectPath = path.join(req.params.project, 'index.html');
+	var p5rc = JSON.parse(fs.readFileSync('.p5rc', 'utf-8'));
+	var projects = p5rc.projects;
+	console.log(projects);
+	res.render('index', {projectPath: projectPath, projects: projects, prev: "", next: ""});
 });
 
 app.use(express.static(currentPath));

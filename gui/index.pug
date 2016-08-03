@@ -17,7 +17,19 @@ html
         position: fixed;
         bottom: 0;
         text-align: center;
+        background-color: #fff;
       }
+
+      .panel ul {
+        padding: 0;
+      }
+
+      .panel li {
+        padding: 10px;
+        margin: 0;
+        display: inline;
+      }
+
       iframe {
         border: none;
         height: 100%;
@@ -25,6 +37,8 @@ html
   body
     iframe(width='100%',height='100%', src= projectPath)
     .panel
-      button.prev prev
-      button.next next
+      ul
+        each project in projects
+          li
+            a(href='../' + project)= project
     
