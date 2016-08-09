@@ -14,11 +14,15 @@ var libraries = {
 	p5soundjs: loadFile('libraries/p5.sound.js')
 }
 
-// code by https://github.com/expressjs/generator
-
 var generator = {
 	collection: function(collection, opt) {
+		var p5rc = {
+			name: collection,
+			projects: []
+		};
+		
 		mkdir(collection, function() {
+			write(collection + '/.p5rc', JSON.stringify(p5rc, null, 2));
 			mkdir(collection + '/libraries', function() {
 				write(collection + '/libraries/p5.js', libraries.p5js);
 				write(collection + '/libraries/p5.min.js', libraries.p5minjs);
@@ -28,6 +32,9 @@ var generator = {
 		});
 	},
 	project: function(project, opt) {
+		var p5rc = JSON.parse(fs.readFileSync('.p5rc', 'utf-8'));
+		p5rc.projects.push(project);
+		write('.p5rc', JSON.stringify(p5rc, null, 2));
 		mkdir(project, function() {
 			if (opt.es6) {
 				write(project + '/sketch.es6', templates.sketchjs);
@@ -39,6 +46,8 @@ var generator = {
 		});
 	}
 }
+
+// the following code are taken from https://github.com/expressjs/generator
 
 function loadFile(name) {
   return fs.readFileSync(path.join(__dirname, name), 'utf-8');

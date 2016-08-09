@@ -45,22 +45,28 @@ This will generate a p5 project folder with some templates in it:
 
 ### Step 3: Start the server and do your magic!
 
-Now edit your sketch.js and go to localhost:5555, then p5-manager will do the rest. (Notice: you should run `p5 server` in a collection directory, instead of a project diretory)
-
 ```bash
 $ p5 server
 # or...
 $ p5 s
 ```
 
-## Options
+Now edit your sketch.js and go to localhost:5555/PROJECT_NAME, then p5-manager will do the rest. (Notice: you should run `p5 server` in a collection directory, instead of a project diretory)
+
+## Static mode v.s GUI mode
+There are two ways to get access to your sketch. One is via public path, ex: `localhost:5555/demo1/index.html`. The other way is GUI mode, simply go to: `localhost:5555/demo1` to have fun with our GUI panel.
+
+## Advanced
 ### Using Babel ES6
 
-Simply add a flag after the `p5 generate` command. Then you'll have a `sketch.es6` file in the project. Those files with `.es6` extension would be automatically compiled to `.js` to the same directory everytime you save them. 
+Simply add a flag after the `p5 generate` command. Then you'll have a `sketch.es6` file in the project. Those files with `.es6` extension would be automatically compiled to `.js` to the same directory everytime you save them.
 
-```bash 
+```bash
 $ p5 g my_project_es6 --es6
 ```
+
+### What is .p5rc
+The main purpose of `.p5rc` is to track projects in the collection. Once you generate a project with command `p5 generate`, it will be utomatically. added to `.p5rc`. Projects listed in the `.p5rc` file would be servered in the GUI mode.
 
 ##WIP
 - GUI for switching between projects, for demo ^^
@@ -68,8 +74,8 @@ $ p5 g my_project_es6 --es6
 - Any idea? Open an [issue](https://github.com/chiunhau/p5-manager/issues)!
 
 ## About this project
-I'm a graphic design student who use p5js a lot so I need something to help me develop, manage or demo my p5js projects more efficiently. That's why p5-manager was made. 
+I'm a graphic design student who use p5js a lot so I need something to help me develop, manage or demo my p5js projects more efficiently. That's why p5-manager was made.
 
-Inspired by [kadamwhite/p5-cli](https://github.com/kadamwhite/p5-cli) and [express/generator](https://github.com/expressjs/generator). 
+Inspired by [kadamwhite/p5-cli](https://github.com/kadamwhite/p5-cli) and [express/generator](https://github.com/expressjs/generator).
 
 Distributed under the MIT license.
