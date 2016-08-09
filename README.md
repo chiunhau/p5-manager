@@ -35,7 +35,7 @@ $ p5 generate my_project
 $ p5 g my_project
 ```
 
-This will generate a p5 project folder with some templates in it:
+This will generate a p5 project folder with some templates in it. (Notice: all projects can't live outside a collection, make sure you are running this command in a collection directory.)
 
 ```bash
 # create : my_project
