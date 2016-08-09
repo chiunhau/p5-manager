@@ -2,7 +2,7 @@ doctype html
 html
   head
     meta(charset='utf-8')
-    title p5-manager
+    title p5 Manager
     style.
       html, body {
         margin: 0;
@@ -10,14 +10,14 @@ html
         height: 100%;
         width: 100%;
       }
-      
+
       .panel {
         width: 100%;
         height: 50px;
         position: fixed;
         bottom: 0;
         text-align: center;
-        background-color: #fff;
+        background-color: rgba(255, 255, 255, 0.9);
       }
 
       .panel ul {
@@ -34,11 +34,24 @@ html
         border: none;
         height: 100%;
       }
+
+      a {
+        color: #999;
+        text-decoration: none;
+      }
+
+      a:hover, a:active {
+        color: #555;
+      }
+
+      a.active {
+        color: #f07;
+      }
   body
     iframe(width='100%',height='100%', src= projectPath)
     .panel
       ul
-        each project in projects
+        each project, i in projects
+          - console.log(project)
           li
-            a(href='../' + project)= project
-    
+            a(href='../' + project, class= project == projectName ? 'active' : '')= project

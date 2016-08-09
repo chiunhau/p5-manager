@@ -29,7 +29,7 @@ app.get('/:project', function(req, res, next) {
 	var p5rc = JSON.parse(fs.readFileSync('.p5rc', 'utf-8'));
 	var projects = p5rc.projects;
 	console.log(projects);
-	res.render('index', {projectPath: projectPath, projects: projects, prev: "", next: ""});
+	res.render('index', {projectPath: projectPath, projects: projects, projectName: req.params.project});
 });
 
 app.use(express.static(currentPath));
@@ -50,7 +50,7 @@ function run(port) {
 
 function write(path, str, mode) {
   fs.writeFileSync(path, str, { mode: mode || 0666 });
-  console.log('   \x1b[36mmodified\x1b[0m : ' + path);	
+  console.log('   \x1b[36mmodified\x1b[0m : ' + path);
 }
 
 app.use(function(req, res, next) {
