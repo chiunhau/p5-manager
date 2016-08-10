@@ -1,0 +1,35 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    title p5 Manager
+    link(rel='stylesheet' type='text/css' href='/assets/style.css')
+  body
+    #sidebar.sidebar--active
+      button.toggle--active#toggle
+        img(src='/assets/star.png')
+      h2 #[a(href='/')= p5rc.name]
+      ul
+        each project in p5rc.projects
+          li
+            a(href=project, class= project == projectName ? 'active' : '')= project
+      .about
+        a.brand(href='/') p5 Manager&nbsp;&nbsp;
+        a.version(href='https://github.com/chiunhau/p5-manager' target='_blank') v0.1.1
+        p made by #[a.twitter(href='https://twitter.com/chiunhauyou' target='_blank') @chiunhau]
+
+    block content
+
+    script.
+      document.getElementById('toggle').addEventListener('click', function() {
+        var sidebar = document.getElementById('sidebar');
+        var toggle = document.getElementById('toggle');
+        if (sidebar.className.length != 0) {
+          sidebar.className = '';
+          toggle.className = '';
+        }
+        else {
+          sidebar.className = 'sidebar--active';
+          toggle.className = 'toggle--active';
+        }
+      });

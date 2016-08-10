@@ -1,6 +1,5 @@
 var express = require('express');
 var logger = require('morgan');
-var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var chokidar = require('chokidar');
 var babel = require('babel-core');
@@ -10,18 +9,17 @@ var path = require('path');
 var fs = require( 'fs' );
 var app = express();
 
-var serverPath = path.dirname(fs.realpathSync(__filename));
+var assetsPath = path.join(__dirname, '../gui');
 var currentPath = process.cwd();
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, '../gui'));
 
 app.get('/', function(req, res) {
-	res.send('Welcome to p5-manager! we are here to host your p5 collection: ' + path.basename(currentPath));
+	res.render('welcome', {p5rc: readP5rc()});
 });
 
 app.get('/:project', function(req, res, next) {
@@ -29,10 +27,16 @@ app.get('/:project', function(req, res, next) {
 	var p5rc = JSON.parse(fs.readFileSync('.p5rc', 'utf-8'));
 	var projects = p5rc.projects;
 	console.log(projects);
-	res.render('index', {projectPath: projectPath, projects: projects, projectName: req.params.project});
+	res.render('index', {projectPath: projectPath, p5rc: readP5rc(), projectName: req.params.project});
 });
 
-app.use(express.static(currentPath));
+app.use('/', express.static(currentPath));
+app.use('/assets', express.static(assetsPath));
+
+function readP5rc() {
+	var p5rc = JSON.parse(fs.readFileSync('.p5rc', 'utf-8'));
+	return p5rc;
+}
 
 function run(port) {
 	app.listen(port, function () {
