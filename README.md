@@ -56,7 +56,7 @@ Now edit your sketch.js and go to localhost:5555/PROJECT_NAME, then p5-manager w
 ## Static mode v.s GUI mode
 There are two ways to get access to your sketch. One is via public path, ex: `localhost:5555/demo1/index.html`. The other way is GUI mode, just go to: `localhost:5555` to have fun with our GUI panel.
 
-[Imgur](http://i.imgur.com/AmZ0Apw.png)
+![p5 Manager - GUI](http://i.imgur.com/AmZ0Apw.png)
 
 ## Advanced
 ### Using Babel ES6
