@@ -1,6 +1,5 @@
 var express = require('express');
 var logger = require('morgan');
-var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var chokidar = require('chokidar');
 var babel = require('babel-core');
@@ -16,13 +15,10 @@ var currentPath = process.cwd();
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, '../gui'));
 
 app.get('/', function(req, res) {
-	// res.send('Welcome to p5-manager! we are here to host your p5 collection: ' + path.basename(currentPath));
-	console.log();
 	res.render('welcome', {p5rc: readP5rc()});
 });
 

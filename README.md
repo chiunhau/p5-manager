@@ -54,24 +54,21 @@ $ p5 s
 Now edit your sketch.js and go to localhost:5555/PROJECT_NAME, then p5-manager will do the rest. (Notice: you should run `p5 server` in a collection directory, instead of a project diretory)
 
 ## Static mode v.s GUI mode
-There are two ways to get access to your sketch. One is via public path, ex: `localhost:5555/demo1/index.html`. The other way is GUI mode, simply go to: `localhost:5555/demo1` to have fun with our GUI panel.
+There are two ways to get access to your sketch. One is via public path, ex: `localhost:5555/demo1/index.html`. The other way is GUI mode, just go to: `localhost:5555` to have fun with our GUI panel.
+
+[Imgur](http://i.imgur.com/AmZ0Apw.png)
 
 ## Advanced
 ### Using Babel ES6
 
-Simply add a flag after the `p5 generate` command. Then you'll have a `sketch.es6` file in the project. Those files with `.es6` extension would be automatically compiled to `.js` to the same directory everytime you save them.
+Simply add a flag after the `p5 generate` command. Then you'll have a `sketch.es6` file in the project. Those files with `.es6` extension would be automatically compiled to `.js` file, to the same directory everytime you save them.
 
 ```bash
 $ p5 g my_project_es6 --es6
 ```
 
-### What is .p5rc
+### .p5rc
 The main purpose of `.p5rc` is to track projects in the collection. Once you generate a project with command `p5 generate`, it will be utomatically. added to `.p5rc`. Projects listed in the `.p5rc` file would be servered in the GUI mode.
-
-##WIP
-- GUI for switching between projects, for demo ^^
-- Support Coffeescript
-- Any idea? Open an [issue](https://github.com/chiunhau/p5-manager/issues)!
 
 ## About this project
 I'm a graphic design student who use p5js a lot so I need something to help me develop, manage or demo my p5js projects more efficiently. That's why p5-manager was made.

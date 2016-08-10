@@ -21,6 +21,12 @@ a.active {
   color: #f07;
 }
 
+code {
+  font-size: 16px;
+  color: #f07;
+  padding: 5px;
+}
+
 iframe {
   border: none;
   height: 100%;
@@ -35,7 +41,6 @@ iframe {
   width: 200px;
   height: 100%;
   text-align:left;
-  padding-top: 15px;
   transition: all 0.5s;
   -webkit-transition: all 0.5s;
 }
@@ -45,7 +50,12 @@ iframe {
 }
 
 #sidebar h2 {
+  padding-top: 15px;
   padding-left: 30px;
+}
+
+#sidebar h2 a {
+  color: #333;
 }
 
 #sidebar ul {
@@ -54,19 +64,21 @@ iframe {
 }
 
 .about {
-  text-align: center;
   position: absolute;
-  bottom: 20px;
+  bottom: 5px;
   left: 0;
   right: 0;
+  font-size: 14px;
+  padding-left: 30px;
 }
 
-.about a {
-  display: block;
+.about p {
+  margin-top: 0;
+  color: #999;
 }
 
-.version {
-  font-size: 12px;
+.about .twitter {
+  color: #f07;
 }
 
 #toggle {
@@ -100,7 +112,7 @@ iframe {
 .wrapper {
   margin: auto;
   display: inline-block;
-  padding-top: 100px;
+  padding-top: 70px;
   text-align: left;
 }
 
@@ -117,21 +129,29 @@ iframe {
   margin-top: -10px;
   padding-bottom: 15px;
 }
-.wrapper .started {
-  color: #333 ;
-  margin-top: 50px;
+
+.wrapper h3 {
+  color: #666;
+  margin-top: 40px;
+  margin-bottom: 0px;
 }
 
 .wrapper ol{
   font-size: 16px;
   color: #666;
   padding-left: 0px;
+  margin-top: 0;
 }
 
 .wrapper li {
   margin-top: 8px;
 }
-/*.wrapper p:after {
+
+.wrapper a {
+  color: #f07;
+}
+
+.wrapper p:after {
   content: "";
   position: absolute;
   width: 100%;
@@ -139,14 +159,8 @@ iframe {
   height: 2px;
   bottom: 0px;
   left: 0;
-}*/
+}
 
 .collection {
   margin-top: 30px;
-}
-
-code {
-  font-size: 16px;
-  color: #f07;
-  padding: 5px;
 }

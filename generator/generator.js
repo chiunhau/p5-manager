@@ -9,7 +9,6 @@ var templates = {
 
 var libraries = {
 	p5js: loadFile('libraries/p5.js'),
-	p5minjs: loadFile('libraries/p5.min.js'),
 	p5domjs: loadFile('libraries/p5.dom.js'),
 	p5soundjs: loadFile('libraries/p5.sound.js')
 }
@@ -20,12 +19,11 @@ var generator = {
 			name: collection,
 			projects: []
 		};
-		
+
 		mkdir(collection, function() {
 			write(collection + '/.p5rc', JSON.stringify(p5rc, null, 2));
 			mkdir(collection + '/libraries', function() {
 				write(collection + '/libraries/p5.js', libraries.p5js);
-				write(collection + '/libraries/p5.min.js', libraries.p5minjs);
 				write(collection + '/libraries/p5.sound.js', libraries.p5soundjs);
 				write(collection + '/libraries/p5.dom.js', libraries.p5domjs);
 			});

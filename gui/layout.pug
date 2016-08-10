@@ -8,14 +8,15 @@ html
     #sidebar.sidebar--active
       button.toggle--active#toggle
         img(src='/assets/star.png')
-      h2= p5rc.name
+      h2 #[a(href='/')= p5rc.name]
       ul
         each project in p5rc.projects
           li
             a(href=project, class= project == projectName ? 'active' : '')= project
       .about
-        a.brand(href='/') p5 Manager
-        a.version(href='https://github.com/chiunhau/p5-manager') v0.1.1
+        a.brand(href='/') p5 Manager&nbsp;&nbsp;
+        a.version(href='https://github.com/chiunhau/p5-manager' target='_blank') v0.1.1
+        p made by #[a.twitter(href='https://twitter.com/chiunhauyou' target='_blank') @chiunhau]
 
     block content
 
