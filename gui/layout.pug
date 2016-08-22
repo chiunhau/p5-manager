@@ -5,8 +5,8 @@ html
     title p5 Manager
     link(rel='stylesheet' type='text/css' href='/assets/style.css')
   body
-    #sidebar.sidebar--active
-      button.toggle--active#toggle
+    #sidebar(class= welcome? 'sidebar--active': '')
+      button#toggle(class= welcome? 'toggle--active': '')
         img(src='/assets/star.png')
       h2 #[a(href='/')= p5rc.name]
       ul

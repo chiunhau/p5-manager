@@ -19,7 +19,7 @@ app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, '../gui'));
 
 app.get('/', function(req, res) {
-	res.render('welcome', {p5rc: readP5rc()});
+	res.render('welcome', {p5rc: readP5rc(), welcome: true});
 });
 
 app.get('/:project', function(req, res, next) {
