@@ -6,6 +6,7 @@
   background-color: #fff;
   font-family: 'Avenir Next', 'Avenir', Helvetica, 'Helvetica Neue', Futura, Arial;
   text-align: center;
+  overflow: hidden;
 }
 
 a {
