@@ -1,4 +1,4 @@
-body {
+html,body {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -6,6 +6,7 @@ body {
   background-color: #fff;
   font-family: 'Avenir Next', 'Avenir', Helvetica, 'Helvetica Neue', Futura, Arial;
   text-align: center;
+  overflow: hidden;
 }
 
 a {
