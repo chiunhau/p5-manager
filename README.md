@@ -6,6 +6,8 @@ p5-manager is a [p5js](https://github.com/processing/p5.js/) template builder an
 
 ## Quick Start
 
+[![Join the chat at https://gitter.im/p5-manager/Lobby](https://badges.gitter.im/p5-manager/Lobby.svg)](https://gitter.im/p5-manager/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ### Step 0: Install from npm
 
 ```bash
