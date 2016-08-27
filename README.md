@@ -1,6 +1,6 @@
  [![npm version](https://badge.fury.io/js/p5-manager.svg)](https://badge.fury.io/js/p5-manager)
 
-p5-manager is a [p5js](https://github.com/processing/p5.js/) template builder and sketch manager. Built for p5js enthusiasts.
+p5-manager is a [p5js](https://github.com/processing/p5.js/) template builder and sketch manager. Built for p5.js enthusiasts.
 
 > p5.js is a JS client-side library for creating graphic and interactive experiences, based on the core principles of Processing.
 
@@ -18,7 +18,7 @@ $ npm install -g p5-manager
 $ p5 new my_collection && cd my_collection
 ```
 
-By excuting this command, it will create a collection directory and some p5 libraries to it. See the output log:
+By executing this command, it will create a collection directory and some p5 libraries to it. See the output log:
 
 ```bash
 # create : my_collection
@@ -51,7 +51,7 @@ $ p5 server
 $ p5 s
 ```
 
-Now edit your sketch.js and go to localhost:5555/PROJECT_NAME, then p5-manager will do the rest. (Notice: you should run `p5 server` in a collection directory, instead of a project diretory)
+Now edit your sketch.js and go to `localhost:5555/PROJECT_NAME`, then p5-manager will do the rest. (Notice: you should run `p5 server` in a collection directory, instead of a project directory)
 
 ## Static mode v.s GUI mode
 There are two ways to get access to your sketch. One is via public path, ex: `localhost:5555/demo1/index.html`. The other way is GUI mode, just go to: `localhost:5555` to have fun with our GUI panel.
@@ -61,17 +61,17 @@ There are two ways to get access to your sketch. One is via public path, ex: `lo
 ## Advanced
 ### Using Babel ES6
 
-Simply add a flag after the `p5 generate` command. Then you'll have a `sketch.es6` file in the project. Those files with `.es6` extension would be automatically compiled to `.js` file, to the same directory everytime you save them.
+Simply add a flag after the `p5 generate` command. Then you'll have a `sketch.es6` file in the project. Those files with `.es6` extension would be automatically compiled to `.js` file, to the same directory every time you save them.
 
 ```bash
 $ p5 g my_project_es6 --es6
 ```
 
 ### .p5rc
-The main purpose of `.p5rc` is to track projects in the collection. Once you generate a project with command `p5 generate`, it will be utomatically. added to `.p5rc`. Projects listed in the `.p5rc` file would be servered in the GUI mode.
+The main purpose of `.p5rc` is to track projects in the collection. Once you generate a project with command `p5 generate`, it will be automatically. added to `.p5rc`. Projects listed in the `.p5rc` file would be servered in the GUI mode.
 
 ## About this project
-I'm a graphic design student who use p5js a lot so I need something to help me develop, manage or demo my p5js projects more efficiently. That's why p5-manager was made.
+I'm a graphic design student who use p5.js a lot so I need something to help me develop, manage or demo my p5.js projects more efficiently. That's why p5-manager was made.
 
 Inspired by [kadamwhite/p5-cli](https://github.com/kadamwhite/p5-cli) and [express/generator](https://github.com/expressjs/generator).
 
