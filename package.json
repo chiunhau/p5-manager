@@ -1,6 +1,6 @@
 {
   "name": "p5-manager",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "A p5js template builder and sketch manager. Built for p5js enthusiasts.",
   "main": "p5-manager.js",
   "scripts": {
@@ -15,11 +15,14 @@
   },
   "keywords": [
     "p5js",
+    "p5.js",
     "p5",
     "manager",
     "sketch",
     "cli",
-    "template"
+    "template",
+    "generator",
+    "es6"
   ],
   "author": "Chiun Hau You",
   "license": "MIT",
