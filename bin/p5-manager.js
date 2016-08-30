@@ -29,4 +29,12 @@ program
 		server.run(5555);
 	});
 
+program
+  .command('update')
+  .alias('u')
+  .description('Update libraries to latest version')
+  .action(function(req, res) {
+    generator.update();
+  })
+
 program.parse(process.argv);
