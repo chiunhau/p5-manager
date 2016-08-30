@@ -30,10 +30,11 @@
     "chokidar": "^1.6.0",
     "commander": "^2.9.0",
     "debug": "~2.2.0",
+    "download": "^5.0.2",
     "express": "~4.13.4",
-    "mkdirp": "^0.5.1",
     "morgan": "~1.7.0",
     "pug": "^2.0.0-beta4",
+    "request": "^2.74.0",
     "serve-favicon": "~2.3.0"
   }
 }

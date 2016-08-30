@@ -1,6 +1,7 @@
-var mkdirp = require('mkdirp');
 var fs = require('fs');
 var path = require('path');
+var request = require('request');
+var download = require('download');
 
 var templates = {
 	sketchjs: loadFile('templates/sketch.js'),
@@ -42,7 +43,38 @@ var generator = {
 			}
 			write(project + '/index.html', templates.indexhtml);
 		});
-	}
+	},
+  update: function() {
+    var option = {
+      url: 'https://api.github.com/repos/processing/p5.js/releases/latest',
+      headers: {
+        'User-Agent': 'chiunhau/p5-manager'
+      }
+    }
+
+    request(option, function(error, res, body) {
+      // get latest release tag
+      var obj = JSON.parse(body);
+      console.log('The latest p5.js release is version ' + obj.tag_name);
+
+      download(libPath(obj.tag_name, 'p5.js'), 'libraries').then(() => {
+        console.log('   \033[36mupdated\033[0m : '  + 'p5.js');
+      });
+      download(libPath(obj.tag_name, 'p5.dom.js'), 'libraries').then(() => {
+        console.log('   \033[36mupdated\033[0m : '  + 'p5.dom.js');
+      });
+      download(libPath(obj.tag_name, 'p5.sound.js'), 'libraries').then(() => {
+        console.log('   \033[36mupdated\033[0m : '  + 'p5.sound.js');
+      });
+    });
+  }
+}
+
+function libPath(tag, filename) {
+  var fullpath = 'https://github.com/processing/p5.js/releases/download/' + tag + '/' + filename;
+  console.log('   \033[36mdownloading\033[0m : '  + filename + '...');
+
+  return fullpath
 }
 
 // the following code are taken from https://github.com/expressjs/generator
@@ -57,7 +89,7 @@ function write(path, str, mode) {
 }
 
 function mkdir(path, fn) {
-  mkdirp(path, 0755, function(err){
+  fs.mkdir(path, 0755, function(err){
     if (err) throw err;
     console.log('   \033[36mcreate\033[0m : ' + path);
     fn && fn();
