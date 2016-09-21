@@ -74,6 +74,26 @@ By running this, p5-manager will check the latest release tag of p5.js on github
 #   updated : p5.js
 ```
 
+## Generate standalone project
+You can also generate a project with its own p5 libraries included, instead of create a collection that shares the same libraries. You can use this command anywhere.
+
+```bash
+p5 generate --bundle PROJECT_NAME
+# or...
+p5 g -b PROJECT_NAME
+```
+Which will do this for you
+
+```bash
+# create : my_project
+#   create : my_project/sketch.js
+#   create : my_project/index.html
+#   create : my_project/libraries
+#   create : my_project/libraries/p5.js
+#   create : my_project/libraries/p5.sound.js
+#   create : my_project/libraries/p5.dom.js
+```
+
 ## Static mode v.s GUI mode
 There are two ways to get access to your sketch. One is via public path, ex: `localhost:5555/demo1/index.html`. The other way is GUI mode, just go to: `localhost:5555` to have fun with our GUI panel.
 
