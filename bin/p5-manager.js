@@ -16,6 +16,7 @@ program
 	.command('generate <project>')
 	.alias('g')
 	.option('-e, --es6', 'ES6 template')
+	.option('-b, --bundle', 'Generate a bundled project')
 	.description('Generate a p5 project')
 	.action(function(req, opt) {
 		generator.project(req, opt);
