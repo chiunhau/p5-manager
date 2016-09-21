@@ -5,7 +5,8 @@ var download = require('download');
 
 var templates = {
 	sketchjs: loadFile('templates/sketch.js'),
-	indexhtml: loadFile('templates/index.html')
+	indexhtml: loadFile('templates/index.html'),
+	indexhtmlb: loadFile('templates/index-bundle.html')
 }
 
 var libraries = {
@@ -32,6 +33,7 @@ var generator = {
 			if(opt.bundle) {
 				createLibraries(project)
 				write(project + '/sketch.js', templates.sketchjs);
+				write(project + '/index.html', templates.indexhtmlb);
 			}
 			else {
 				var p5rc = JSON.parse(fs.readFileSync('.p5rc', 'utf-8'));
@@ -44,8 +46,9 @@ var generator = {
 				else {
 					write(project + '/sketch.js', templates.sketchjs);
 				}
+				write(project + '/index.html', templates.indexhtml);
 			}
-			write(project + '/index.html', templates.indexhtml);
+
 		});
 	},
   update: function() {
