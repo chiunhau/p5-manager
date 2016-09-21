@@ -23,23 +23,27 @@ var generator = {
 
 		mkdir(collection, function() {
 			write(collection + '/.p5rc', JSON.stringify(p5rc, null, 2));
-			mkdir(collection + '/libraries', function() {
-				write(collection + '/libraries/p5.js', libraries.p5js);
-				write(collection + '/libraries/p5.sound.js', libraries.p5soundjs);
-				write(collection + '/libraries/p5.dom.js', libraries.p5domjs);
-			});
+			createLibraries(collection);
 		});
 	},
 	project: function(project, opt) {
-		var p5rc = JSON.parse(fs.readFileSync('.p5rc', 'utf-8'));
-		p5rc.projects.push(project);
-		write('.p5rc', JSON.stringify(p5rc, null, 2));
+
 		mkdir(project, function() {
-			if (opt.es6) {
-				write(project + '/sketch.es6', templates.sketchjs);
+			if(opt.bundle) {
+				createLibraries(project)
+				write(project + '/sketch.js', templates.sketchjs);
 			}
 			else {
-				write(project + '/sketch.js', templates.sketchjs);
+				var p5rc = JSON.parse(fs.readFileSync('.p5rc', 'utf-8'));
+				p5rc.projects.push(project);
+				write('.p5rc', JSON.stringify(p5rc, null, 2));
+
+				if (opt.es6) {
+					write(project + '/sketch.es6', templates.sketchjs);
+				}
+				else {
+					write(project + '/sketch.js', templates.sketchjs);
+				}
 			}
 			write(project + '/index.html', templates.indexhtml);
 		});
@@ -75,6 +79,14 @@ function libPath(tag, filename) {
   console.log('   \033[36mdownloading\033[0m : '  + filename + '...');
 
   return fullpath
+}
+
+function createLibraries(dirName) {
+	mkdir(dirName + '/libraries', function() {
+		write(dirName + '/libraries/p5.js', libraries.p5js);
+		write(dirName + '/libraries/p5.sound.js', libraries.p5soundjs);
+		write(dirName + '/libraries/p5.dom.js', libraries.p5domjs);
+	});
 }
 
 // the following code are taken from https://github.com/expressjs/generator
