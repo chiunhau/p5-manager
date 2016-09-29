@@ -29,6 +29,9 @@ var generator = {
 	},
 	project: function(project, opt) {
 
+		templates.indexhtml = templates.indexhtml.replace('{{project-title}}', project);
+		templates.indexhtmlb = templates.indexhtmlb.replace('{{project-title}}', project);
+
 		mkdir(project, function() {
 			if(opt.bundle) {
 				createLibraries(project)
