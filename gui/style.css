@@ -31,15 +31,16 @@ code {
 iframe {
   border: none;
   height: 100%;
+  margin-left: 45px;
 }
 
 #sidebar {
   position: absolute;
   z-index: 10;
-  left: -200px;
+  left: -175px;
   top: 0;
   background-color: #f5f5f5;
-  width: 200px;
+  width: 220px;
   height: 100%;
   text-align:left;
   transition: all 0.5s;
@@ -84,7 +85,7 @@ iframe {
 
 #toggle {
   position: absolute;
-  left: 220px;
+  left: 180px;
   top: 30px;
   background-color: transparent;
   border: none;
@@ -107,7 +108,7 @@ iframe {
 }
 
 #toggle img {
-  width: 30px;
+  width: 24px;
 }
 
 .wrapper {
