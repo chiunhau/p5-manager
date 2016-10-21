@@ -1,6 +1,6 @@
 {
   "name": "p5-manager",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "description": "A p5js template builder and sketch manager. Built for p5js enthusiasts.",
   "main": "p5-manager.js",
   "scripts": {
