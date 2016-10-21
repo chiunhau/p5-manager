@@ -3,6 +3,10 @@
 var server = require('../server/server.js');
 var generator = require('../generator/generator.js');
 var program = require('commander');
+var pjson = require('../package.json');
+
+program
+	.option('-v, --version', 'Show version of p5-manager', pjson.version)
 
 program
 	.command('new <collection>')
@@ -10,7 +14,7 @@ program
 	.description('Create new p5 collection')
 	.action(function(req, opt) {
 		generator.collection(req, opt);
-	});
+	})
 
 program
 	.command('generate <project>')
@@ -20,7 +24,7 @@ program
 	.description('Generate a p5 project')
 	.action(function(req, opt) {
 		generator.project(req, opt);
-	});
+	})
 
 program
 	.command('server')
@@ -28,7 +32,7 @@ program
 	.description('Run run run')
 	.action(function(req, res) {
 		server.run(5555);
-	});
+	})
 
 program
   .command('update')
@@ -38,4 +42,10 @@ program
     generator.update();
   })
 
-program.parse(process.argv);
+
+	if(program.version) {
+		console.log('p5-manager version ' + pjson.version);
+	}
+
+program
+	.parse(process.argv);
