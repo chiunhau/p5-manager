@@ -52,8 +52,25 @@ iframe {
 }
 
 #sidebar h2 {
-  padding-top: 15px;
+  padding-left: 15px;
+  padding-top: 0px;
+  margin-top: 10px;
+  margin-left: 182px;
+  -ms-transform: rotate(90deg); /* IE 9 */
+  -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+  transform: rotate(90deg);
+  transform-origin: bottom left;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+}
+
+#sidebar.sidebar--active h2{
   padding-left: 30px;
+  padding-top: 15px;
+  margin-left: 0px;
+  -ms-transform: rotate(0deg); /* IE 9 */
+  -webkit-transform: rotate(0deg); /* Chrome, Safari, Opera */
+  transform: rotate(0deg);
 }
 
 #sidebar h2 a {
@@ -86,11 +103,12 @@ iframe {
 #toggle {
   position: absolute;
   left: 180px;
-  top: 30px;
+  top: 10px;
   background-color: transparent;
   border: none;
   transition: all 1s;
   -webkit-transition: all 1s;
+  z-index: 11;
 }
 
 #toggle:hover {
