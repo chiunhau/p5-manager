@@ -2,7 +2,7 @@
 
 p5-manager is a [p5js](https://github.com/processing/p5.js/) template builder and sketch manager. Built for p5.js enthusiasts.
 
-> p5.js is a JS client-side library for creating graphic and interactive experiences, based on the core principles of Processing.
+![p5 Manager - GUI](http://i.imgur.com/AmZ0Apw.png)
 
 ## Quick Start
 
@@ -53,27 +53,6 @@ $ p5 s
 
 Now edit your sketch.js and go to `localhost:5555/PROJECT_NAME`, then p5-manager will do the rest. (Notice: you should run `p5 server` in a collection directory, instead of a project directory)
 
-## Update libraries
-To update p5 libraries to the latest version:
-
-```bash
-$ cd my_collection
-$ p5 update
-# or...
-$ p5 u
-```
-By running this, p5-manager will check the latest release tag of p5.js on github, and download `p5.js`, `p5.dom.js` and `p5.sound.js` to the `libraries` folder in your collection.
-
-```bash
-#The latest p5.js release is version 0.5.3
-#   downloading : p5.js...
-#   downloading : p5.dom.js...
-#   downloading : p5.sound.js...
-#   updated : p5.dom.js
-#   updated : p5.sound.js
-#   updated : p5.js
-```
-
 ## Generate standalone project
 You can also generate a project with its own p5 libraries included, instead of create a collection that shares the same libraries. You can use this command anywhere.
 
@@ -94,10 +73,20 @@ Which will do this for you
 #   create : my_project/libraries/p5.dom.js
 ```
 
+## Update libraries
+We provide a decent method to update p5 libraries to the latest version:
+
+```bash
+$ cd my_collection
+$ p5 update
+# or...
+$ p5 u
+```
+By running this, p5-manager will check the latest release tag of p5.js on github, and download `p5.js`, `p5.dom.js` and `p5.sound.js` to the `libraries` folder in your collection.
+
 ## Static mode v.s GUI mode
 There are two ways to get access to your sketch. One is via public path, ex: `localhost:5555/demo1/index.html`. The other way is GUI mode, just go to: `localhost:5555` to have fun with our GUI panel.
 
-![p5 Manager - GUI](http://i.imgur.com/AmZ0Apw.png)
 
 ## Advanced
 ### Using Babel ES6
@@ -109,9 +98,9 @@ $ p5 g my_project_es6 --es6
 ```
 
 ### .p5rc
-The main purpose of `.p5rc` is to track projects in the collection. Once you generate a project with command `p5 generate`, it will be automatically. added to `.p5rc`. Projects listed in the `.p5rc` file would be servered in the GUI mode.
+The main purpose of `.p5rc` is to track projects in the collection. Once you generate a project with command `p5 generate`, it will be automatically added to `.p5rc`. Projects listed in the `.p5rc` file would be served in the GUI mode.
 
-Currently, if you create a project without using `p5 generate`, you'll have to append the project name into `.p5rc` on your own, to add it to stage.
+Currently, if you create a project without using `p5 generate`, you'll have to append the project name into `.p5rc` on your own, to add it to stage. Please follow the rule of JSON formatting when doing this.
 
 ## About this project
 I'm a graphic design student who use p5.js a lot so I need something to help me develop, manage or demo my p5.js projects more efficiently. That's why p5-manager was made.
