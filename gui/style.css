@@ -22,6 +22,11 @@ a.active {
   color: #f07;
 }
 
+.staticBtn {
+  color: #ccc;
+  font-size: 15px;
+}
+
 code {
   font-size: 16px;
   color: #f07;
@@ -31,7 +36,7 @@ code {
 iframe {
   border: none;
   height: 100%;
-  margin-left: 45px;
+  margin-left: 0px;
 }
 
 #sidebar {
