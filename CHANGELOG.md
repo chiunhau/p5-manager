@@ -1,3 +1,10 @@
+### 0.2.10
+- Add customize port option for `p5 server`
+
+### 0.2.9
+- Add project title animation
+- Add new window button for each project
+
 ### 0.2.8
 - Add `p5 -v` to show the version of p5-manager.
 - Update p5.js to version `0.5.4`.
