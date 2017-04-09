@@ -26,7 +26,6 @@ app.get('/:project', function(req, res, next) {
 	var projectPath = path.join(req.params.project, 'index.html');
 	var p5rc = JSON.parse(fs.readFileSync('.p5rc', 'utf-8'));
 	var projects = p5rc.projects;
-	console.log(projects);
 	res.render('index', {projectPath: projectPath, p5rc: readP5rc(), projectName: req.params.project});
 });
 
@@ -40,7 +39,7 @@ function readP5rc() {
 
 function run(port) {
 	app.listen(port, function () {
-	  console.log('Meet p5-manager at port 5555!');
+	  console.log('p5-manager is starting at port ' + port);
 		chokidar.watch(currentPath + '/**/*.es6', {ignore: /[\/\\]\./}).on('all', function(event, p) {
 		  if (event === 'change' || event === 'add') {
 	  		babel.transformFile(p, {presets: [es2015]}, function(err, result) {

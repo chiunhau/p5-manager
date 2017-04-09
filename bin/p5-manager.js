@@ -30,8 +30,9 @@ program
 	.command('server')
 	.alias('s')
 	.description('Run run run')
-	.action(function(req, res) {
-		server.run(5555);
+	.option('-p, --port [port]', 'HTTP port to start server')
+	.action(function(req) {
+		server.run(req.port || 5555);
 	})
 
 program

@@ -53,7 +53,9 @@ $ p5 s
 
 Now edit your sketch.js and go to `localhost:5555/PROJECT_NAME`, then p5-manager will do the rest. (Notice: you should run `p5 server` in a collection directory, instead of a project directory)
 
-## Generate standalone project
+## Advance
+
+### Generate standalone project
 You can also generate a project with its own p5 libraries included, instead of create a collection that shares the same libraries. You can use this command anywhere.
 
 ```bash
@@ -72,8 +74,15 @@ Which will do this for you
 #   create : my_project/libraries/p5.sound.js
 #   create : my_project/libraries/p5.dom.js
 ```
+### Customize port
 
-## Update libraries
+```bash
+p5 server --port 8888
+# or...
+p5 s -p 8888
+```
+
+### Update libraries
 We provide a decent method to update p5 libraries to the latest version:
 
 ```bash
@@ -84,11 +93,9 @@ $ p5 u
 ```
 By running this, p5-manager will check the latest release tag of p5.js on github, and download `p5.js`, `p5.dom.js` and `p5.sound.js` to the `libraries` folder in your collection.
 
-## Static mode v.s GUI mode
+### Static mode v.s GUI mode
 There are two ways to get access to your sketch. One is via public path, ex: `localhost:5555/demo1/index.html`. The other way is GUI mode, just go to: `localhost:5555` to have fun with our GUI panel.
 
-
-## Advanced
 ### Using Babel ES6
 
 Simply add a flag after the `p5 generate` command. Then you'll have a `sketch.es6` file in the project. Those files with `.es6` extension would be automatically compiled to `.js` file, to the same directory every time you save them.
