@@ -1,0 +1,26 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    title p5 Manager
+    link(rel='stylesheet' type='text/css' href='/assets/style.css')
+    script(src='/assets/vue.min.js')
+    script(src='/assets/jquery-3.2.0.min.js')
+    
+  body
+    #app 
+      #sidebar(v-bind:class='{"sidebar--active": sidebarActive}')
+        button#toggle(v-bind:class='{"toggle--active": sidebarActive}', v-on:click='toggle')
+          img(src='/assets/star.png')
+        h2 #[a(href='/') {{collectionName}}]
+        ul
+          li(v-for='(project, index) in projects')
+            a(href='#', v-on:click='projectClicked(project)') {{project}}
+        .about
+          a.brand(href='/') p5 Manager&nbsp;&nbsp;
+          a.version(href='https://github.com/chiunhau/p5-manager' target='_blank') v0.2.10
+          p made by #[a.twitter(href='https://twitter.com/chiunhauyou' target='_blank') @chiunhau]
+      
+      iframe(class='iframe-split' width='50%',height='100%', scrolling='no', v-bind:src='iframesrc')
+      
+    script(src='/assets/split-view.js')

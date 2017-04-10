@@ -39,6 +39,10 @@ iframe {
   margin-left: 0px;
 }
 
+iframe .iframe-split {
+  left: 0;
+}
+
 #sidebar {
   position: absolute;
   z-index: 10;
@@ -135,7 +139,7 @@ iframe {
 }
 
 .wrapper {
-  margin: auto;
+  margin: 0 auto;
   display: inline-block;
   padding-top: 70px;
   text-align: left;
@@ -188,4 +192,9 @@ iframe {
 
 .collection {
   margin-top: 30px;
+}
+
+#app {
+  height: 100%;
+  width: 100%;
 }

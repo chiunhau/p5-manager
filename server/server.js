@@ -22,12 +22,23 @@ app.get('/', function(req, res) {
 	res.render('welcome', {p5rc: readP5rc(), welcome: true});
 });
 
+app.get('/split-view', function(req, res, next) {
+	res.render('index-split-view');
+})
+
+app.get('/fetch-projects', function(req, res) {
+	var p5rc = JSON.parse(fs.readFileSync('.p5rc', 'utf-8'));
+	var projects = p5rc.projects;
+	res.json({projects: projects, collectionName: p5rc.name})
+})
+
 app.get('/:project', function(req, res, next) {
 	var projectPath = path.join(req.params.project, 'index.html');
 	var p5rc = JSON.parse(fs.readFileSync('.p5rc', 'utf-8'));
 	var projects = p5rc.projects;
-	res.render('index', {projectPath: projectPath, p5rc: readP5rc(), projectName: req.params.project});
+	res.render('index', {projectPath: projectPath, p5rc: readP5rc(), projectName: req.params.project, splitView: false});
 });
+
 
 app.use('/', express.static(currentPath));
 app.use('/assets', express.static(assetsPath));
