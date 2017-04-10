@@ -8,19 +8,24 @@ html
     script(src='/assets/jquery-3.2.0.min.js')
     
   body
-    #app 
-      #sidebar(v-bind:class='{"sidebar--active": sidebarActive}')
-        button#toggle(v-bind:class='{"toggle--active": sidebarActive}', v-on:click='toggle')
-          img(src='/assets/star.png')
-        h2 #[a(href='/') {{collectionName}}]
-        ul
-          li(v-for='(project, index) in projects')
-            a(href='#', v-on:click='projectClicked(project)') {{project}}
-        .about
-          a.brand(href='/') p5 Manager&nbsp;&nbsp;
-          a.version(href='https://github.com/chiunhau/p5-manager' target='_blank') v0.2.10
-          p made by #[a.twitter(href='https://twitter.com/chiunhauyou' target='_blank') @chiunhau]
-      
-      iframe(class='iframe-split' width='50%',height='100%', scrolling='no', v-bind:src='iframesrc')
-      
+    #app
+      split-view.split-view.split-view--left
+      split-view.split-view.split-view--right
+    
+    script(type='text/x-template' id='split-view-template').
+      <div>
+        <div class="sidebar" v-bind:class='{"sidebar--active": sidebarActive}'>
+          <button class="toggle" v-bind:class='{"toggle--active": sidebarActive}' v-on:click='toggle'>
+            <img src="/assets/star.png" />
+          </button>
+          <h2><a href="/"> {{collectionName}} </a></h2>
+          <ul>
+            <li v-for='(project, index) in projects'>
+              <a href="#" v-on:click="projectClicked(project)"> {{project}} </a>
+            </li>
+          </ul>
+        </div>
+        <iframe class="iframe-split" width="100%" scrolling="no" v-bind:src="iframesrc"></iframe>
+      </div>
+        
     script(src='/assets/split-view.js')

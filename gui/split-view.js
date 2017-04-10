@@ -1,11 +1,13 @@
-new Vue({
-  el: '#app',
-  data: {
-    title: 'Hello World',
-    projects: [],
-    collectionName: '',
-    iframesrc: '',
-    sidebarActive: true
+Vue.component('split-view', {
+  template: '#split-view-template',
+  data: function(){
+    return {
+      title: 'Hello World',
+      projects: [],
+      collectionName: '',
+      iframesrc: '',
+      sidebarActive: true
+    };
   },
   mounted: function() {
     console.log('going to fetch');
@@ -35,3 +37,8 @@ new Vue({
   }
 
 });
+
+var app = new Vue({
+  el: '#app'
+
+})
