@@ -24,6 +24,7 @@ Vue.component('split-view', {
   },
   methods: {
     projectClicked: function(project) {
+      this.sidebarActive = false;
       this.iframesrc = '/' + project + '/index.html';
     },
     toggle: function() {

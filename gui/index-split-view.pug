@@ -3,7 +3,7 @@ html
   head
     meta(charset='utf-8')
     title p5 Manager
-    link(rel='stylesheet' type='text/css' href='/assets/style.css')
+    link(rel='stylesheet' type='text/css' href='/assets/style-split-view.css')
     script(src='/assets/vue.min.js')
     script(src='/assets/jquery-3.2.0.min.js')
     
@@ -24,6 +24,9 @@ html
               <a href="#" v-on:click="projectClicked(project)"> {{project}} </a>
             </li>
           </ul>
+          <div class="about">
+            <a href="../" class="link-split">← Standard Mode</a>
+          </div>
         </div>
         <iframe class="iframe-split" width="100%" scrolling="no" v-bind:src="iframesrc"></iframe>
       </div>

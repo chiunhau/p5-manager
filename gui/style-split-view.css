@@ -39,41 +39,70 @@ iframe {
   margin-left: 0px;
 }
 
-#sidebar {
+.sidebar {
   position: absolute;
   z-index: 10;
-  left: -175px;
+
   top: 0;
   background-color: #f5f5f5;
   width: 220px;
   height: 100%;
-  text-align:left;
+
   transition: all 0.5s;
   -webkit-transition: all 0.5s;
 }
 
-#sidebar.sidebar--active {
+.split-view {
+  width: 50%;
+  height: 100%;
+  float:left;
+}
+
+.split-view--left .sidebar {
+  left: -175px;
+  text-align: left;
+}
+
+.split-view--right .sidebar {
+  right: -175px;
+  text-align: right;
+}
+
+.split-view--left .sidebar.sidebar--active {
   left: 0;
 }
 
-#sidebar h2 {
-  margin-top: 10px;
-  padding-left: 30px;
-
+.split-view--right .sidebar.sidebar--active {
+  right: 0;
 }
 
-#sidebar h2 a {
+.split-view--left .sidebar h2 {
+  margin-top: 10px;
+  padding-left: 30px;
+}
+
+.split-view--right .sidebar h2 {
+  margin-top: 10px;
+  padding-right: 30px;
+}
+
+.sidebar h2 a {
   color: #333;
 }
 
-#sidebar ul {
+.split-view--left .sidebar ul {
   list-style: none;
   padding-left: 30px;
 }
 
+.split-view--right .sidebar ul {
+  list-style: none;
+  padding-right: 30px;
+}
+
 .about {
   position: absolute;
-  bottom: 5px;
+  bottom: 20px;
   left: 0;
   right: 0;
   font-size: 14px;
@@ -94,9 +123,8 @@ iframe {
   color: #f07;
 }
 
-#toggle {
+.toggle {
   position: absolute;
-  left: 180px;
   top: 10px;
   background-color: transparent;
   border: none;
@@ -105,26 +133,34 @@ iframe {
   z-index: 11;
 }
 
-#toggle:hover {
+.split-view--left .toggle {
+  left: 180px;
+}
+
+.split-view--right .toggle {
+  right: 180px;
+}
+
+.toggle:hover {
   cursor: pointer;
 }
 
-#toggle:focus {
+.toggle:focus {
   outline: none;
 }
 
-#toggle.toggle--active {
+.toggle.toggle--active {
   -ms-transform: rotate(144deg); /* IE 9 */
   -webkit-transform: rotate(144deg); /* Chrome, Safari, Opera */
   transform: rotate(144deg);
 }
 
-#toggle img {
+.toggle img {
   width: 24px;
 }
 
 .wrapper {
-  margin: auto;
+  margin: 0 auto;
   display: inline-block;
   padding-top: 70px;
   text-align: left;
@@ -177,4 +213,9 @@ iframe {
 
 .collection {
   margin-top: 30px;
+}
+
+#app {
+  height: 100%;
+  width: 100%;
 }
