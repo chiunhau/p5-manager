@@ -2,7 +2,7 @@
 
 p5-manager is a [p5js](https://github.com/processing/p5.js/) template builder and sketch manager. Built for p5.js enthusiasts.
 
-![p5 Manager - GUI](http://i.imgur.com/AmZ0Apw.png)
+![p5 Manager - GUI](screenshot.png)
 
 ## Quick Start
 
