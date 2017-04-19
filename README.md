@@ -58,6 +58,8 @@ Now edit your sketch.js and go to `localhost:5555/PROJECT_NAME`, then p5-manager
 ### Split view mode
 You can run two sketches simultaneously in split view mode. Just click the link in the bottom of sidebar and enter split view mode.
 
+![Split view mode](https://media.giphy.com/media/3oKIP8140JV4xuRmkU/giphy.gif)
+
 ### Generate standalone project
 You can also generate a project with its own p5 libraries included, instead of create a collection that shares the same libraries. You can use this command anywhere.
 
