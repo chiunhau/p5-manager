@@ -1,3 +1,7 @@
+### 0.2.11
+- Add brand new "split view" feature.
+- Add Vue.js dependency
+
 ### 0.2.10
 - Add customize port option for `p5 server`
 
