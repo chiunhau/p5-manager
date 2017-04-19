@@ -100,6 +100,10 @@ iframe {
   padding-right: 30px;
 }
 
+.split-view.split-view--right .about {
+  display: none;
+}
+
 .about {
   position: absolute;
   bottom: 20px;
