@@ -1,14 +1,23 @@
 <template lang="pug">
-  iframe(v-bind:src='src' width='100%' scrolling='no')
+  div
+    h3 {{project}}
+    h3 {{src}}
+    iframe(v-bind:src='src' width='100%' scrolling='no')
 </template>
 
 <script>
   export default {
     data() {
       return {
-        src: '/test1/index.html'
+      }
+    },
+    props: ['project'],
+    computed: {
+      src() {
+        return '/' + this.project + '/index.html'
       }
     }
+
   }
 </script>
 

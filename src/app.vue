@@ -1,8 +1,8 @@
 <template lang="pug">
   div
-    Sidebar
+    Sidebar(v-on:changeProject='changeProject')
     .content
-      Sketch
+      Sketch(v-bind:project='activeProject')
 </template>
 
 <script>
@@ -13,12 +13,19 @@ import Sketch from './Sketch.vue'
 export default {
   data () {
     return {
-      message: 'Helo, Vue.js 2.0'
+      message: 'Helo, Vue.js 2.0',
+      activeProject: ''
     }
   },
   components: {
     Sidebar,
     Sketch
+  },
+  methods: {
+    changeProject(projectName) {
+      console.log("emit")
+      this.activeProject = projectName;
+    }
   }
 }
 </script>

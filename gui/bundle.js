@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "e1e218213e71e49db2ce"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "920bb00d007c58e46215"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -10189,7 +10189,7 @@ exports = module.exports = __webpack_require__(5)(undefined);
 
 
 // module
-exports.push([module.i, "\nhtml, body {\n  margin: 0;\n  padding: 0;\n  height: 100%;\n  width: 100%;\n  background-color: #fff;\n  font-family: 'Avenir Next', 'Avenir', Helvetica, 'Helvetica Neue', Futura, Arial;\n  text-align: center;\n  overflow: hidden;\n}\n", ""]);
+exports.push([module.i, "\nhtml, body {\n  margin: 0;\n  padding: 0;\n  height: 100%;\n  width: 100%;\n  background-color: #fff;\n  font-family: 'Avenir Next', 'Avenir', Helvetica, 'Helvetica Neue', Futura, Arial;\n  text-align: center;\n  overflow: hidden;\n}\n.content {\n  width: 100%;\n  height: 100%;\n}\n", ""]);
 
 // exports
 
@@ -10203,7 +10203,7 @@ exports = module.exports = __webpack_require__(5)(undefined);
 
 
 // module
-exports.push([module.i, "\na {\n  color: #999;\n  text-decoration: none;\n}\na:hover, a:active {\n    color: #555;\n}\na:active {\n    color: #f07;\n}\n.sidebar {\n  position: absolute;\n  z-index: 10;\n  top: 0;\n  background-color: #f5f5f5;\n  width: 220px;\n  height: 100%;\n  transition: all 0.5s;\n  -webkit-transition: all 0.5s;\n}\n.toggle {\n  position: absolute;\n  top: 10px;\n  background-color: transparent;\n  border: none;\n  transition: all 1s;\n  -webkit-transition: all 1s;\n  z-index: 11;\n}\n.toggle img {\n    width: 24px;\n}\n", ""]);
+exports.push([module.i, "\na {\n  color: #999;\n  text-decoration: none;\n}\na:hover, a:active {\n    color: #555;\n}\na:active {\n    color: #f07;\n}\n.sidebar {\n  position: absolute;\n  z-index: 10;\n  top: 0;\n  left: -175px;\n  background-color: #f5f5f5;\n  width: 220px;\n  height: 100%;\n  text-align: left;\n  transition: all 0.5s;\n  -webkit-transition: all 0.5s;\n}\n.sidebar h2 {\n    margin-top: 10px;\n    padding-left: 30px;\n    color: #333;\n}\n.sidebar ul {\n    list-style: none;\n    padding-left: 30px;\n}\n.sidebar.sidebar--active {\n    left: 0;\n}\n.toggle {\n  position: absolute;\n  top: 10px;\n  background-color: transparent;\n  border: none;\n  transition: all 1s;\n  -webkit-transition: all 1s;\n  z-index: 11;\n}\n.toggle:hover {\n    cursor: pointer;\n}\n.toggle:focus {\n    outline: none;\n}\n.toggle img {\n    width: 24px;\n}\n.toggle.toggle--left {\n    left: 180px;\n}\n.toggle.toggle--active {\n    -ms-transform: rotate(144deg);\n    /* IE 9 */\n    -webkit-transform: rotate(144deg);\n    /* Chrome, Safari, Opera */\n    transform: rotate(144deg);\n}\n", ""]);
 
 // exports
 
@@ -10217,7 +10217,7 @@ exports = module.exports = __webpack_require__(5)(undefined);
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, "\niframe {\n  border: none;\n  height: 100%;\n  margin-left: 0px;\n}\n", ""]);
 
 // exports
 
@@ -10683,8 +10683,19 @@ exports.default = {
   data: function data() {
     return {
       message: "Hello",
-      projects: ['project1', 'project2']
+      projects: ['project1', 'project2'],
+      sidebarActive: true
     };
+  },
+
+  methods: {
+    toggle: function toggle() {
+      if (this.sidebarActive) {
+        this.sidebarActive = false;
+      } else {
+        this.sidebarActive = true;
+      }
+    }
   }
 };
 
@@ -10732,6 +10743,7 @@ var _Sketch2 = _interopRequireDefault(_Sketch);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+//
 //
 //
 //
@@ -12909,7 +12921,9 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('Sidebar'), _c('Sketch')], 1)
+  return _c('div', [_c('Sidebar'), _c('div', {
+    staticClass: "content"
+  }, [_c('Sketch')], 1)], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (true) {
@@ -12925,8 +12939,23 @@ if (true) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "sidebar"
-  }, [_vm._m(0), _vm._m(1), _c('ul', _vm._l((_vm.projects), function(project, index) {
+    staticClass: "sidebar",
+    class: {
+      "sidebar--active": _vm.sidebarActive
+    }
+  }, [_c('button', {
+    staticClass: "toggle toggle--left",
+    class: {
+      "toggle--active": _vm.sidebarActive
+    },
+    on: {
+      "click": _vm.toggle
+    }
+  }, [_c('img', {
+    attrs: {
+      "src": "/assets/star.png"
+    }
+  })]), _vm._m(0), _c('ul', _vm._l((_vm.projects), function(project, index) {
     return _c('li', [_c('a', {
       attrs: {
         "href": "#"
@@ -12934,19 +12963,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v(_vm._s(project))])])
   }))])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('button', {
-    staticClass: "toggle"
-  }, [_c('img', {
-    attrs: {
-      "src": "/assets/star.png"
-    }
-  })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('h2', [_c('a', {
     attrs: {
       "href": "/"
     }
-  }, [_vm._v("collectionName")])])
+  }, [_vm._v("DEMO1")])])
 }]}
 module.exports.render._withStripped = true
 if (true) {
@@ -12963,7 +12984,9 @@ if (true) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('iframe', {
     attrs: {
-      "src": _vm.src
+      "src": _vm.src,
+      "width": "100%",
+      "scrolling": "no"
     }
   })
 },staticRenderFns: []}

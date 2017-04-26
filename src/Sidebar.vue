@@ -6,7 +6,7 @@
       a(href='/') DEMO1
     ul
       li(v-for='(project, index) in projects')
-        a(href='#') {{project}}
+        a(href='#' v-on:click='projectClicked(project)') {{project}}
 </template>
 
 <script>
@@ -15,10 +15,11 @@
       return {
         message: "Hello",
         projects: [
-          'project1',
-          'project2'
+          'test1',
+          'test2'
         ],
-        sidebarActive: true
+        sidebarActive: true,
+        activeProject: ''
       }
     },
     methods: {
@@ -29,6 +30,10 @@
         else {
           this.sidebarActive = true;
         }
+      },
+      projectClicked(projectName) {
+        this.sidebarActive = false;
+        this.$emit('changeProject', projectName);
       }
     }
   }
