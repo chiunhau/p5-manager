@@ -19,8 +19,13 @@ app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, '../gui'));
 
 app.get('/', function(req, res) {
-	res.render('welcome', {p5rc: readP5rc(), welcome: true});
+	// res.render('welcome', {p5rc: readP5rc(), welcome: true});
+	res.sendFile('gui/index.html', {root: '../'});
 });
+
+app.get('/api/:project', function(req, res, next) {
+	res.sned
+})
 
 app.get('/split-view', function(req, res, next) {
 	res.render('index-split-view');

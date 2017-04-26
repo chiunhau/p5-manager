@@ -7,7 +7,7 @@ var config = {
   ],
   output: {
     publicPath: '/assets/',
-    path: path.join(__dirname, 'dist'),
+    path: path.join(__dirname, 'gui'),
     filename: 'bundle.js'
   },
   module: {
@@ -37,11 +37,12 @@ var config = {
     hot: true,
     port: 5555,
     proxy: {
-      '/api': {
+      '/': {
         target: 'http://localhost:8080',
         secure: false
       }
-    }
+    },
+    contentBase: './dist'
   }
 }
 
