@@ -3,7 +3,7 @@
     button.toggle.toggle--left(v-bind:class='{"toggle--active": sidebarActive}' v-on:click='toggle')
       img(src='/assets/star.png')
     h2
-      a(href='/') DEMO1
+      router-link(to='/') DEMO1
     ul
       li(v-for='(project, index) in projects')
         router-link.project-link(v-bind:to='"/" + project' v-bind:class='{"project-link--active": activeProject == project}') {{project}}
