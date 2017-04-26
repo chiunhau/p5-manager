@@ -6,10 +6,14 @@
       a(href='/') DEMO1
     ul
       li(v-for='(project, index) in projects')
-        a(href='#' v-on:click='projectClicked(project)') {{project}}
+        router-link.project-link(v-bind:to='"/" + project' v-bind:class='{"project-link--active": activeProject == project}') {{project}}
 </template>
 
 <script>
+  import Vue from 'vue'
+  import VueRouter from 'vue-router'
+  Vue.use(VueRouter);
+
   export default {
     data() {
       return {
@@ -18,8 +22,12 @@
           'test1',
           'test2'
         ],
-        sidebarActive: true,
-        activeProject: ''
+        sidebarActive: true
+      }
+    },
+    computed: {
+      activeProject() {
+        return this.$route.params.project
       }
     },
     methods: {
@@ -78,6 +86,10 @@
 
     &.sidebar--active {
       left: 0;
+    }
+
+    .project-link--active {
+      color: #f07;
     }
   }
 

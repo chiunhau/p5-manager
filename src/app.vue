@@ -2,13 +2,17 @@
   div
     Sidebar(v-on:changeProject='changeProject')
     .content
-      Sketch(v-bind:project='activeProject')
+      router-view
+      //- Sketch(v-bind:project='activeProject')
 </template>
 
 <script>
-
+import VueRouter from 'vue-router'
 import Sidebar from './Sidebar.vue'
 import Sketch from './Sketch.vue'
+import Vue from 'vue'
+Vue.use(VueRouter);
+
 
 export default {
   data () {

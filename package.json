@@ -40,7 +40,8 @@
     "pug": "^2.0.0-beta4",
     "request": "^2.74.0",
     "serve-favicon": "~2.3.0",
-    "vue": "^2.2.6"
+    "vue": "^2.2.6",
+    "vue-router": "^2.5.2"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",

@@ -1,7 +1,6 @@
 <template lang="pug">
   div
-    h3 {{project}}
-    h3 {{src}}
+    h3 {{$route.params.project}}
     iframe(v-bind:src='src' width='100%' scrolling='no')
 </template>
 
@@ -14,7 +13,7 @@
     props: ['project'],
     computed: {
       src() {
-        return '/' + this.project + '/index.html'
+        return '/' + this.$route.params.project + '/index.html'
       }
     }
 
