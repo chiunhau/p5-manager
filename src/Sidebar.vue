@@ -8,12 +8,12 @@
       li(v-for='(project, index) in projects')
         router-link.project-link(v-if='split' v-on:click.native='toggle' v-bind:to='fullLinkTo(side, project)' v-bind:class='{"project-link--active": activeProject == project}') {{project}}
         router-link.project-link(v-else v-on:click.native='toggle' v-bind:to='"/" + project' v-bind:class='{"project-link--active": activeProject == project}') {{project}}
-        router-link.staticBtn(v-bind:to='project + "/index.html"' v-bind:class='{active: project === activeProject}' target='_blank' )  ↗
+        router-link.staticBtn(v-bind:to='"/" + project + "/index.html"' v-bind:class='{active: project === activeProject}' target='_blank' )  ↗
     .about
       router-link.link-split(v-if='!split' v-bind:to='"/split-view/+"') Split View Mode
       router-link.link-split(v-else to='/') ← Standard Mode
       a.brand(href='/') p5 Manager&nbsp;&nbsp;
-      a.version(href='https://github.com/chiunhau/p5-manager' target='_blank') v0.3
+      a.version(href='https://github.com/chiunhau/p5-manager' target='_blank') v0.3.0
       p made by #[a.twitter(href='https://twitter.com/chiunhauyou' target='_blank') @chiunhau]
 </template>
 
