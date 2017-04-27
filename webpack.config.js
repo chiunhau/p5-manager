@@ -37,7 +37,7 @@ var config = {
     hot: true,
     port: 5555,
     proxy: {
-      '/': {
+      '/api': {
         target: 'http://localhost:8080',
         secure: false
       }

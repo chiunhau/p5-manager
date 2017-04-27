@@ -19,6 +19,7 @@
 <script>
   import Vue from 'vue'
   import VueRouter from 'vue-router'
+  import $ from 'jquery'
   Vue.use(VueRouter);
 
   export default {
@@ -26,8 +27,6 @@
       return {
         message: "Hello",
         projects: [
-          'test1',
-          'test2'
         ],
         sidebarActive: true
       }
@@ -60,7 +59,19 @@
           return '/split-view/' + projects[0] + '+' + project
         }
       }
-    }
+    },
+    mounted: function() {
+      console.log('going to fetch');
+      var self = this;
+      $.get({
+        url: '/api/projects',
+        dataType: 'json',
+        success: function(data) {
+          self.projects = data.projects;
+          // self.collectionName = data.collectionName;
+        }
+      })
+    },
   }
 </script>
 
