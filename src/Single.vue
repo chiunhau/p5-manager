@@ -1,8 +1,8 @@
 <template lang="pug">
   .content
     .single-view
-      Sidebar( v-bind:split='false')
-      Sketch(v-bind:project='$route.params.project')
+      Sidebar(v-bind:split='false')
+      router-view(v-bind:project='$route.params.project')
 </template>
 
 <script>

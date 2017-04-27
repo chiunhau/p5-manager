@@ -1,30 +1,22 @@
 <template lang="pug">
-  .content
-    .single-view
-      Sidebar( v-bind:split='false')
-      .wrapper
-        h1 Hello p5.js!
-        p.magic Your creativity times p5-manager's magic
-        h3 Getting started
-        ol
-          li Use<code>$ p5 new COLLECTION_NAME</code> to create a collection
-          li Then<code>$ p5 generate PROJECT_NAME</code>to generate a  project
-          li Run<code>$ p5 server</code>in the collection directory
-          li Go to<code>localhost:5555</code>and you should see this page
-          li All your projects would be listed in the left
-        h3 Need help?
-        ol
-          li Check the #[a(href='https://github.com/chiunhau/p5-manager/blob/master/README.md' target='_blank') documentation]
-          li Open an #[a(href='https://github.com/chiunhau/p5-manager/blob/master/README.md' target='_blank' ) issue]
+  .wrapper
+    h1 Hello p5.js!
+    p.magic Your creativity times p5-manager's magic
+    h3 Getting started
+    ol
+      li Use<code>$ p5 new COLLECTION_NAME</code> to create a collection
+      li Then<code>$ p5 generate PROJECT_NAME</code>to generate a  project
+      li Run<code>$ p5 server</code>in the collection directory
+      li Go to<code>localhost:5555</code>and you should see this page
+      li All your projects would be listed in the left
+    h3 Need help?
+    ol
+      li Check the #[a(href='https://github.com/chiunhau/p5-manager/blob/master/README.md' target='_blank') documentation]
+      li Open an #[a(href='https://github.com/chiunhau/p5-manager/blob/master/README.md' target='_blank' ) issue]
 </template>
 
 <script>
-import Sidebar from './Sidebar.vue'
-
 export default {
-  components: {
-    Sidebar
-  }
 }
 </script>
 
