@@ -9,7 +9,7 @@
         router-link.project-link(v-if='split' v-on:click.native='toggle' v-bind:to='fullLinkTo(side, project)' v-bind:class='{"project-link--active": activeProject == project}') {{project}}
         router-link.project-link(v-else v-on:click.native='toggle' v-bind:to='"/" + project' v-bind:class='{"project-link--active": activeProject == project}') {{project}}
     .about
-      router-link.link-split(v-if='!split' v-bind:to='"/split-view"') Split View Mode
+      router-link.link-split(v-if='!split' v-bind:to='"/split-view/+"') Split View Mode
       router-link.link-split(v-else to='/') ← Standard Mode
       a.brand(href='/') p5 Manager&nbsp;&nbsp;
       a.version(href='https://github.com/chiunhau/p5-manager' target='_blank') v0.2.11
@@ -50,12 +50,14 @@
         console.log(this.sidebarActive)
       },
       fullLinkTo(side, project) {
+        var projects = this.$route.params.twoProjects.toString().split('+')
+
         if (side === 'left') {
-          return '/split-view/' + project + '/' + this.$route.params.project2
+          return '/split-view/' + project + '+' + projects[1]
         }
 
         else {
-          return '/split-view/' + this.$route.params.project1 + '/' + project
+          return '/split-view/' + projects[0] + '+' + project
         }
       }
     }
