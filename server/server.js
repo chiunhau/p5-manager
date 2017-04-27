@@ -4,7 +4,6 @@ var bodyParser = require('body-parser');
 var chokidar = require('chokidar');
 var babel = require('babel-core');
 var es2015 = require('babel-preset-es2015');
-var pug = require('pug');
 var path = require('path');
 var fs = require( 'fs' );
 var history = require('connect-history-api-fallback');
@@ -18,10 +17,6 @@ var currentPath = process.cwd();
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
-// app.use(history());
-app.set('view engine', 'pug');
-app.set('views', path.join(__dirname, '../gui'));
 
 app.use('/assets', express.static(assetsPath));
 
