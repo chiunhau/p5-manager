@@ -29,7 +29,7 @@
           'test1',
           'test2'
         ],
-        sidebarActive: false
+        sidebarActive: true
       }
     },
     props: ['side', 'split'],
