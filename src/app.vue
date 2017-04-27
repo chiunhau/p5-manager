@@ -1,9 +1,5 @@
 <template lang="pug">
-  div
-    Sidebar(v-on:changeProject='changeProject')
-    .content
-      router-view
-      //- Sketch(v-bind:project='activeProject')
+  router-view
 </template>
 
 <script>
@@ -13,23 +9,15 @@ import Sketch from './Sketch.vue'
 import Vue from 'vue'
 Vue.use(VueRouter);
 
-
 export default {
   data () {
     return {
-      message: 'Helo, Vue.js 2.0',
       activeProject: ''
     }
   },
   components: {
     Sidebar,
     Sketch
-  },
-  methods: {
-    changeProject(projectName) {
-      console.log("emit")
-      this.activeProject = projectName;
-    }
   }
 }
 </script>

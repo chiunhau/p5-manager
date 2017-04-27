@@ -33,6 +33,12 @@ export default {
       margin-bottom: 0px;
     }
 
+    code {
+      font-size: 16px;
+      color: #f07;
+      padding: 5px;
+    }
+
     .magic {
       position: relative;
       font-size: 18px;
