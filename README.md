@@ -15,7 +15,7 @@ $ npm install -g p5-manager
 ### Step 1: Initialize a new collection
 
 ```bash
-$ p5 new my_collection && cd my_collection
+$ p5 new my_collection
 ```
 
 By executing this command, it will create a collection directory and some p5 libraries to it. See the output log:
@@ -30,6 +30,7 @@ By executing this command, it will create a collection directory and some p5 lib
 ### Step 2: Generate a p5 project
 
 ```bash
+$ cd my_collection
 $ p5 generate my_project
 # or...
 $ p5 g my_project

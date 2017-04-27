@@ -1,3 +1,9 @@
+### 0.3.0
+- Rebuild with Vue.js and vue-router.
+- Totally client side rendering.
+- New split view url format introduced.
+- Add developer friendly scripts (see 'demo' folder).
+
 ### 0.2.11
 - Add brand new "split view" feature.
 - Add Vue.js dependency

@@ -3,16 +3,17 @@
     button.toggle(v-bind:class='{"toggle--active": sidebarActive}' v-on:click='toggle')
       img(src='/assets/star.png')
     h2
-      router-link(to='/') DEMO1
+      router-link(to='/') {{collectionName}}
     ul
       li(v-for='(project, index) in projects')
         router-link.project-link(v-if='split' v-on:click.native='toggle' v-bind:to='fullLinkTo(side, project)' v-bind:class='{"project-link--active": activeProject == project}') {{project}}
         router-link.project-link(v-else v-on:click.native='toggle' v-bind:to='"/" + project' v-bind:class='{"project-link--active": activeProject == project}') {{project}}
+        router-link.staticBtn(v-bind:to='project + "/index.html"' v-bind:class='{active: project === activeProject}' target='_blank' )  ↗
     .about
       router-link.link-split(v-if='!split' v-bind:to='"/split-view/+"') Split View Mode
       router-link.link-split(v-else to='/') ← Standard Mode
       a.brand(href='/') p5 Manager&nbsp;&nbsp;
-      a.version(href='https://github.com/chiunhau/p5-manager' target='_blank') v0.2.11
+      a.version(href='https://github.com/chiunhau/p5-manager' target='_blank') v0.3
       p made by #[a.twitter(href='https://twitter.com/chiunhauyou' target='_blank') @chiunhau]
 </template>
 
@@ -25,9 +26,8 @@
   export default {
     data() {
       return {
-        message: "Hello",
-        projects: [
-        ],
+        projects: [],
+        collectionName: '',
         sidebarActive: true
       }
     },
@@ -64,11 +64,11 @@
       console.log('going to fetch');
       var self = this;
       $.get({
-        url: '/api/projects',
+        url: '/api/p5rc',
         dataType: 'json',
         success: function(data) {
           self.projects = data.projects;
-          // self.collectionName = data.collectionName;
+          self.collectionName = data.collectionName;
         }
       })
     },
@@ -117,6 +117,15 @@
 
     .project-link--active {
       color: #f07;
+    }
+
+    .staticBtn {
+      color: #ccc;
+      font-size: 15px;
+
+      .active {
+        color: #aaa;
+      }
     }
   }
 

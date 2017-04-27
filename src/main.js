@@ -9,6 +9,7 @@ import Single from './Single.vue'
 import Split from './Split.vue'
 
 const router = new VueRouter({
+  mode: 'history',
   routes: [
     { path: '/split-view/:twoProjects', component: Split},
     { path: '/', component: Single, children:[

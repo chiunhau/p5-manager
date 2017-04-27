@@ -22,7 +22,7 @@ app.get('/', function(req, res) {
 	res.sendFile('index.html', {root: assetsPath});
 });
 
-app.get('/api/projects', function(req, res) {
+app.get('/api/p5rc', function(req, res) {
 	var p5rc = JSON.parse(fs.readFileSync('.p5rc', 'utf-8'));
 	var projects = p5rc.projects;
 	res.json({projects: projects, collectionName: p5rc.name})
