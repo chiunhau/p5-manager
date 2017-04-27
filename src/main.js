@@ -11,9 +11,9 @@ import Split from './Split.vue'
 const router = new VueRouter({
   routes: [
     {path: '/', component: Welcome},
-    {path: '/:project', component: Single},
-    {path: '/split-view/:project1/:project2', component: Split}
-
+    {path: '/split-view/', component: Split},
+    {path: '/split-view/:project1/:project2', component: Split},
+    {path: '/:project', component: Single}
   ]
 });
 

@@ -1,7 +1,8 @@
 <template lang="pug">
   .content
-    Sidebar
-    Sketch(v-bind:project='$route.params.project')
+    .single-view
+      Sidebar( v-bind:split='false')
+      Sketch(v-bind:project='$route.params.project')
 </template>
 
 <script>
@@ -21,5 +22,7 @@
 </script>
 
 <style lang="scss">
-
+  .single-view {
+    height: 100%;
+  }
 </style>

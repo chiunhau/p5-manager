@@ -6,10 +6,11 @@
       router-link(to='/') DEMO1
     ul
       li(v-for='(project, index) in projects')
-        router-link.project-link(v-if='split' v-bind:to='fullLinkTo(side, project)' v-bind:class='{"project-link--active": activeProject == project}') {{project}}
-        router-link.project-link(v-else v-bind:to='"/" + project' v-bind:class='{"project-link--active": activeProject == project}') {{project}}
+        router-link.project-link(v-if='split' v-on:click.native='toggle' v-bind:to='fullLinkTo(side, project)' v-bind:class='{"project-link--active": activeProject == project}') {{project}}
+        router-link.project-link(v-else v-on:click.native='toggle' v-bind:to='"/" + project' v-bind:class='{"project-link--active": activeProject == project}') {{project}}
     .about
-      a.link-split(href='split-view') Split View Mode
+      router-link.link-split(v-if='!split' v-bind:to='"/split-view"') Split View Mode
+      router-link.link-split(v-else to='/') ← Standard Mode
       a.brand(href='/') p5 Manager&nbsp;&nbsp;
       a.version(href='https://github.com/chiunhau/p5-manager' target='_blank') v0.2.11
       p made by #[a.twitter(href='https://twitter.com/chiunhauyou' target='_blank') @chiunhau]
@@ -39,12 +40,14 @@
     },
     methods: {
       toggle() {
+
         if (this.sidebarActive) {
           this.sidebarActive = false;
         }
         else {
           this.sidebarActive = true;
         }
+        console.log(this.sidebarActive)
       },
       fullLinkTo(side, project) {
         if (side === 'left') {
@@ -217,5 +220,29 @@
 
   .split-view.split-view--right .about {
     display: none;
+  }
+
+  .single-view {
+    .sidebar {
+      left: -175px;
+      text-align: left;
+
+      &.sidebar--active {
+        left: 0;
+      }
+
+      h2 {
+        margin-top: 10px;
+        padding-left: 30px;
+      }
+
+      ul {
+        list-style: none;
+        padding-left: 30px;
+      }
+      .toggle{
+        left: 180px;
+      }
+    }
   }
 </style>
