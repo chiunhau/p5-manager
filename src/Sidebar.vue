@@ -8,7 +8,7 @@
       li(v-for='(project, index) in projects')
         router-link.project-link(v-if='split' v-on:click.native='toggle' v-bind:to='fullLinkTo(side, project)' v-bind:class='{"project-link--active": activeProject == project}') {{project}}
         router-link.project-link(v-else v-on:click.native='toggle' v-bind:to='"/" + project' v-bind:class='{"project-link--active": activeProject == project}') {{project}}
-        router-link.staticBtn(v-bind:to='"/" + project + "/index.html"' v-bind:class='{active: project === activeProject}' target='_blank' )  ↗
+        a.staticBtn(v-if='!split' v-bind:href='staticLinkTo(project)' v-bind:class='{active: project === activeProject}' target='_blank' )  ↗
     .about
       router-link.link-split(v-if='!split' v-bind:to='"/split-view/+"') Split View Mode
       router-link.link-split(v-else to='/') ← Standard Mode
@@ -28,7 +28,7 @@
       return {
         projects: [],
         collectionName: '',
-        sidebarActive: true
+        sidebarActive: false
       }
     },
     props: ['side', 'split'],
@@ -47,6 +47,9 @@
           this.sidebarActive = true;
         }
         console.log(this.sidebarActive)
+      },
+      staticLinkTo(project) {
+        return document.location.origin + '/' + project + '/index.html'
       },
       fullLinkTo(side, project) {
         var projects = this.$route.params.twoProjects.toString().split('+')

@@ -7,16 +7,23 @@ var es2015 = require('babel-preset-es2015');
 var pug = require('pug');
 var path = require('path');
 var fs = require( 'fs' );
+var history = require('connect-history-api-fallback');
 var app = express();
+
 
 var assetsPath = path.join(__dirname, '../gui');
 var currentPath = process.cwd();
 
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+// app.use(history());
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, '../gui'));
+
+app.use('/assets', express.static(assetsPath));
 
 app.get('/', function(req, res) {
 	res.sendFile('index.html', {root: assetsPath});
@@ -29,7 +36,7 @@ app.get('/api/p5rc', function(req, res) {
 })
 
 app.use('/', express.static(currentPath));
-app.use('/assets', express.static(assetsPath));
+
 
 function readP5rc() {
 	var p5rc = JSON.parse(fs.readFileSync('.p5rc', 'utf-8'));

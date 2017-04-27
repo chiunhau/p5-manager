@@ -42,7 +42,7 @@ var config = {
         secure: false
       }
     },
-    contentBase: './dist'
+    contentBase: './gui'
   }
 }
 

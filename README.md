@@ -52,7 +52,7 @@ $ p5 server
 $ p5 s
 ```
 
-Now edit your sketch.js and go to `localhost:5555/PROJECT_NAME`, then p5-manager will do the rest. (Notice: you should run `p5 server` in a collection directory, instead of a project directory)
+Now edit your sketch.js and go to `localhost:5555`, then p5-manager will do the rest. (Notice: you should run `p5 server` in a collection directory, instead of a project directory)
 
 ## Advanced Usage
 
