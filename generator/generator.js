@@ -29,24 +29,24 @@ var generator = {
 	},
 	project: function(project, opt) {
 
-		templates.indexhtml = templates.indexhtml.replace('{{project-title}}', project);
-		templates.indexhtmlb = templates.indexhtmlb.replace('{{project-title}}', project);
+		templates.indexhtml = templates.indexhtml.replace('{{project-title}}',
+			project);
+		templates.indexhtmlb = templates.indexhtmlb.replace('{{project-title}}',
+			project);
 
 		mkdir(project, function() {
-			if(opt.bundle) {
+			if (opt.bundle) {
 				createLibraries(project)
 				write(project + '/sketch.js', templates.sketchjs);
 				write(project + '/index.html', templates.indexhtmlb);
-			}
-			else {
+			} else {
 				var p5rc = JSON.parse(fs.readFileSync('.p5rc', 'utf-8'));
 				p5rc.projects.push(project);
 				write('.p5rc', JSON.stringify(p5rc, null, 2));
 
 				if (opt.es6) {
 					write(project + '/sketch.es6', templates.sketchjs);
-				}
-				else {
+				} else {
 					write(project + '/sketch.js', templates.sketchjs);
 				}
 				write(project + '/index.html', templates.indexhtml);
@@ -54,37 +54,73 @@ var generator = {
 
 		});
 	},
-  update: function() {
-    var option = {
-      url: 'https://api.github.com/repos/processing/p5.js/releases/latest',
-      headers: {
-        'User-Agent': 'chiunhau/p5-manager'
-      }
-    }
 
-    request(option, function(error, res, body) {
-      // get latest release tag
-      var obj = JSON.parse(body);
-      console.log('The latest p5.js release is version ' + obj.tag_name);
+	// Added by Torben Brams
+	// 2017-09-31
+	// Easier to manage renaming inside collections
+	//
+	rename: function(oldName, newName) {
 
-      download(libPath(obj.tag_name, 'p5.js'), 'libraries').then(() => {
-        console.log('   \033[36mupdated\033[0m : '  + 'p5.js');
-      });
-      download(libPath(obj.tag_name, 'p5.dom.js'), 'libraries').then(() => {
-        console.log('   \033[36mupdated\033[0m : '  + 'p5.dom.js');
-      });
-      download(libPath(obj.tag_name, 'p5.sound.js'), 'libraries').then(() => {
-        console.log('   \033[36mupdated\033[0m : '  + 'p5.sound.js');
-      });
-    });
-  }
+		// update the hidden file
+		var obj = JSON.parse(fs.readFileSync('.p5rc', 'utf-8'));
+		let found = false;
+
+		for (var i = 0; i < obj.projects.length; i++) {
+			if (obj.projects[i] == oldName) {
+				obj.projects[i] = newName;
+				found = true;
+				break;
+			}
+		}
+		if (found) {
+			write('.p5rc', JSON.stringify(obj, null, 2));
+
+			// rename the directory name
+			try {
+				fs.renameSync(oldName, newName);
+				console.log(`Project ${oldName} renamed to ${newName} `);
+			} catch (err) {
+				console.log('Could not rename: ' + err);
+			}
+
+		} else {
+			console.log(`Project ${oldName} not found`);
+		}
+	},
+
+
+	update: function() {
+		var option = {
+			url: 'https://api.github.com/repos/processing/p5.js/releases/latest',
+			headers: {
+				'User-Agent': 'chiunhau/p5-manager'
+			}
+		}
+
+		request(option, function(error, res, body) {
+			// get latest release tag
+			var obj = JSON.parse(body);
+			console.log('The latest p5.js release is version ' + obj.tag_name);
+
+			download(libPath(obj.tag_name, 'p5.js'), 'libraries').then(() => {
+				console.log('   \033[36mupdated\033[0m : ' + 'p5.js');
+			});
+			download(libPath(obj.tag_name, 'p5.dom.js'), 'libraries').then(() => {
+				console.log('   \033[36mupdated\033[0m : ' + 'p5.dom.js');
+			});
+			download(libPath(obj.tag_name, 'p5.sound.js'), 'libraries').then(() => {
+				console.log('   \033[36mupdated\033[0m : ' + 'p5.sound.js');
+			});
+		});
+	}
 }
 
 function libPath(tag, filename) {
-  var fullpath = 'https://github.com/processing/p5.js/releases/download/' + tag + '/' + filename;
-  console.log('   \033[36mdownloading\033[0m : '  + filename + '...');
+	var fullpath = 'https://github.com/processing/p5.js/releases/download/' + tag +
+		'/' + filename;
+	console.log('   \033[36mdownloading\033[0m : ' + filename + '...');
 
-  return fullpath
+	return fullpath
 }
 
 function createLibraries(dirName) {
@@ -98,20 +134,22 @@ function createLibraries(dirName) {
 // the following code are taken from https://github.com/expressjs/generator
 
 function loadFile(name) {
-  return fs.readFileSync(path.join(__dirname, name), 'utf-8');
+	return fs.readFileSync(path.join(__dirname, name), 'utf-8');
 }
 
 function write(path, str, mode) {
-  fs.writeFileSync(path, str, { mode: mode || 0666 });
-  console.log('   \x1b[36mcreate\x1b[0m : ' + path);
+	fs.writeFileSync(path, str, {
+		mode: mode || 0666
+	});
+	console.log('   \x1b[36mcreate\x1b[0m : ' + path);
 }
 
 function mkdir(path, fn) {
-  fs.mkdir(path, 0755, function(err){
-    if (err) throw err;
-    console.log('   \033[36mcreate\033[0m : ' + path);
-    fn && fn();
-  });
+	fs.mkdir(path, 0755, function(err) {
+		if (err) throw err;
+		console.log('   \033[36mcreate\033[0m : ' + path);
+		fn && fn();
+	});
 }
 
 module.exports = generator;
