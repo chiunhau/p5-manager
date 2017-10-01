@@ -78,6 +78,25 @@ var generator = {
 			// rename the directory name
 			try {
 				fs.renameSync(oldName, newName);
+
+				// Now, update the title tag in the index.html file
+				let htmLines = fs.readFileSync(newName + '/index.html', 'utf-8').split(
+					'\n');
+
+				for (var i = 0; i < htmLines.length; i++) {
+					let line = htmLines[i];
+					let start = line.search('<title>');
+					if (start > 0) {
+						let stop = line.search('</title>');
+						let newLine =
+							line.substr(0, start + 7) +
+							newName +
+							line.substr(stop, line.length);
+						htmLines[i] = newLine;
+					}
+				}
+				write(newName + '/index.html', htmLines.join('\n'));
+
 				console.log(`Project ${oldName} renamed to ${newName} `);
 			} catch (err) {
 				console.log('Could not rename: ' + err);
