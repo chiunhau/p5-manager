@@ -7,6 +7,7 @@ var es2015 = require('babel-preset-es2015');
 var path = require('path');
 var fs = require( 'fs' );
 var history = require('connect-history-api-fallback');
+var livereload = require('livereload');
 var app = express();
 
 
@@ -49,7 +50,11 @@ function run(port) {
 	  		});
 		  }
 		});
-	});
+  });
+
+  if (app.get('env') === 'development') {
+    livereload.createServer().watch(process.cwd());
+  }
 }
 
 function write(path, str, mode) {
