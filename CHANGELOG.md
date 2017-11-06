@@ -1,3 +1,9 @@
+### 0.3.3
+- Support live reload. (Default when running `p5 server`)
+- Fix GUI margin-left bug.
+- Add new command `p5 rename PROJECT_NAME NEW_PROJECT_NAME` to rename a project.
+- Add favicon for GUI mode.
+
 ### 0.3.0
 - Rebuild with Vue.js and vue-router.
 - Totally client side rendering.
