@@ -27,6 +27,14 @@ program
 	})
 
 program
+	.command('rename <old_project> <new_project>')
+	.alias('mv')
+	.description('Rename p5 project <old> <new-name>')
+	.action(function(req, opt) {
+		generator.rename(req, opt);
+	})
+
+program
 	.command('server')
 	.alias('s')
 	.description('Run run run')
@@ -36,17 +44,17 @@ program
 	})
 
 program
-  .command('update')
-  .alias('u')
-  .description('Update libraries to latest version')
-  .action(function(req, res) {
-    generator.update();
-  })
+	.command('update')
+	.alias('u')
+	.description('Update libraries to latest version')
+	.action(function(req, res) {
+		generator.update();
+	})
 
 
-	if(program.version) {
-		console.log('p5-manager version ' + pjson.version);
-	}
+if (program.version) {
+	console.log('p5-manager version ' + pjson.version);
+}
 
 program
 	.parse(process.argv);
