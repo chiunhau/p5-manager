@@ -1,4 +1,5 @@
 var express = require('express');
+var favicon = require('serve-favicon');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 var chokidar = require('chokidar');
@@ -14,7 +15,7 @@ var app = express();
 var assetsPath = path.join(__dirname, '../gui');
 var currentPath = process.cwd();
 
-
+app.use(favicon(path.join(assetsPath, 'star.png')))
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -51,10 +52,8 @@ function run(port) {
 		  }
 		});
   });
-
-  if (app.get('env') === 'development') {
-    livereload.createServer().watch(process.cwd());
-  }
+	
+  livereload.createServer().watch(process.cwd());
 }
 
 function write(path, str, mode) {

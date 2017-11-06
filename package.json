@@ -41,7 +41,7 @@
     "livereload": "^0.6.3",
     "morgan": "~1.7.0",
     "request": "^2.74.0",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "^2.3.2"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",
