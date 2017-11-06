@@ -1,4 +1,4 @@
-### 0.3.3
+### 0.4.0
 - Support live reload. (Default when running `p5 server`)
 - Fix GUI margin-left bug.
 - Add new command `p5 rename PROJECT_NAME NEW_PROJECT_NAME` to rename a project.
