@@ -1,5 +1,5 @@
 <template lang="pug">
-  iframe(v-bind:src='src' width='100%' scrolling='no')
+  iframe(v-bind:src='src' width='100%' scrolling='no' id='single-sketch')
 </template>
 
 <script>
@@ -17,6 +17,16 @@
       src() {
         return '/' + this.project + '/index.html'
       }
+    },
+    watch: {
+      project: function() {
+        document.getElementById('single-sketch').focus();
+      }
+    },
+    mounted: function () {
+      this.$nextTick(function () {
+        document.getElementById('single-sketch').focus();
+      })
     }
 
   }

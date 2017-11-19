@@ -1,3 +1,6 @@
+### 0.4.1
+- Resolved issue #32.
+
 ### 0.4.0
 - Support live reload. (Default when running `p5 server`)
 - Fix GUI margin-left bug.
