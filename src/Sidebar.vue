@@ -13,7 +13,7 @@
       router-link.link-split(v-if='!split' v-bind:to='"/split-view/+"') Split View Mode
       router-link.link-split(v-else to='/') ← Standard Mode
       a.brand(href='/') p5 Manager&nbsp;&nbsp;
-      a.version(href='https://github.com/chiunhau/p5-manager' target='_blank') v0.3.0
+      a.version(href='https://github.com/chiunhau/p5-manager' target='_blank') v0.4.1
       p made by #[a.twitter(href='https://twitter.com/chiunhauyou' target='_blank') @chiunhau]
 </template>
 
