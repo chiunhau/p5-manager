@@ -42,7 +42,7 @@ function readP5rc() {
 
 function run(port) {
 	app.listen(port, function () {
-	  console.log('p5-manager is starting at port ' + port);
+	  console.log(`p5-manager started at http://localhost:${port}`);
 		chokidar.watch(currentPath + '/**/*.es6', {ignore: /[\/\\]\./}).on('all', function(event, p) {
 		  if (event === 'change' || event === 'add') {
 	  		babel.transformFile(p, {presets: [es2015]}, function(err, result) {
