@@ -1,4 +1,4 @@
-/*! p5.dom.js v0.3.2 March 25, 2017 */
+/*! p5.dom.js v0.3.4 Aug 11, 2017 */
 /**
  * <p>The web is much more than just canvas and p5.dom makes it easy to interact
  * with other HTML5 objects, including text, hyperlink, image, input, video,
@@ -188,7 +188,10 @@
       return converted;
     } else if (elt.tagName === "VIDEO" || elt.tagName === "AUDIO") {
       return new p5.MediaElement(elt);
-    } else {
+    } else if ( elt.tagName === "SELECT" ){
+      return createSelect( new p5.Element(elt) );
+    } 
+    else {
       return new p5.Element(elt);
     }
   }
@@ -236,7 +239,7 @@
    * appends to body.
    *
    * @method createDiv
-   * @param  {String} html inner HTML for element created
+   * @param  {String} [html] inner HTML for element created
    * @return {Object|p5.Element} pointer to p5.Element holding created node
    * @example
    * <div class='norender'><code>
@@ -254,7 +257,7 @@
    * appends to body.
    *
    * @method createP
-   * @param  {String} html inner HTML for element created
+   * @param  {String} [html] inner HTML for element created
    * @return {Object|p5.Element} pointer to p5.Element holding created node
    * @example
    * <div class='norender'><code>
@@ -271,7 +274,7 @@
    * appends to body.
    *
    * @method createSpan
-   * @param  {String} html inner HTML for element created
+   * @param  {String} [html] inner HTML for element created
    * @return {Object|p5.Element} pointer to p5.Element holding created node
    * @example
    * <div class='norender'><code>
@@ -453,7 +456,6 @@
   p5.prototype.createButton = function(label, value) {
     var elt = document.createElement('button');
     elt.innerHTML = label;
-    elt.value = value;
     if (value) elt.value = value;
     return addElement(elt, this);
   };
@@ -525,9 +527,10 @@
 
   /**
    * Creates a dropdown menu &lt;select&gt;&lt;/select&gt; element in the DOM.
+   * It also helps to assign select-box methods to p5.Element when selecting existing select box
    * @method createSelect
    * @param {boolean} [multiple] true if dropdown should support multiple selections
-   * @return {Object|p5.Element} pointer to p5.Element holding created node
+   * @return {p5.Element}
    * @example
    * <div><code>
    * var sel;
@@ -550,37 +553,76 @@
    * }
    * </code></div>
    */
-  p5.prototype.createSelect = function(mult) {
-    var elt = document.createElement('select');
-    if (mult){
-      elt.setAttribute('multiple', 'true');
+  /**
+   * @method createSelect
+   * @param {Object} existing DOM select element
+   * @return {p5.Element}
+   */
+
+  p5.prototype.createSelect = function() {
+    var elt, self;
+    var arg = arguments[0];
+    if( typeof arg === 'object' && arg.elt.nodeName === 'SELECT' ) {
+      self = arg;
+      elt = this.elt = arg.elt;
+    } else {
+      elt = document.createElement('select');
+      if( arg && typeof arg === 'boolean' ) {
+        elt.setAttribute('multiple', 'true');
+      }
+      self = addElement(elt, this);
     }
-    var self = addElement(elt, this);
-    self.option = function(name, value){
-      var opt = document.createElement('option');
-      opt.innerHTML = name;
-      if (arguments.length > 1)
-        opt.value = value;
-      else
-        opt.value = name;
-      elt.appendChild(opt);
+    self.option = function(name, value) {
+      var index;
+      //see if there is already an option with this name
+      for (var i = 0; i < this.elt.length; i++) {
+        if(this.elt[i].innerHTML == name) {
+          index = i;
+          break;
+        }
+      }
+      //if there is an option with this name we will modify it
+      if(index !== undefined) {
+        //if the user passed in false then delete that option
+        if(value === false) {
+          this.elt.remove(index);
+        } else {
+          //otherwise if the name and value are the same then change both
+          if(this.elt[index].innerHTML == this.elt[index].value) {
+            this.elt[index].innerHTML = this.elt[index].value = value;
+          //otherwise just change the value
+          } else {
+            this.elt[index].value = value;
+          }
+        }
+      }
+      //if it doesn't exist make it
+      else {
+        var opt = document.createElement('option');
+        opt.innerHTML = name;
+        if (arguments.length > 1)
+            opt.value = value;
+        else
+            opt.value = name;
+        elt.appendChild(opt);
+      }
     };
-    self.selected = function(value){
+    self.selected = function(value) {
       var arr = [];
-      if (arguments.length > 0){
-        for (var i = 0; i < this.elt.length; i++){
-          if (value.toString() === this.elt[i].value){
+      if (arguments.length > 0) {
+        for (var i = 0; i < this.elt.length; i++) {
+          if (value.toString() === this.elt[i].value) {
             this.elt.selectedIndex = i;
           }
         }
         return this;
-      }else{
-        if (mult){
-          for (var i = 0; i < this.elt.selectedOptions.length; i++){
+      } else {
+        if (this.elt.getAttribute('multiple')) {
+          for (var i = 0; i < this.elt.selectedOptions.length; i++) {
             arr.push(this.elt.selectedOptions[i].value);
           }
           return arr;
-        }else{
+        } else {
           return this.elt.value;
         }
       }
@@ -886,7 +928,7 @@
    *                             enough data has been loaded to play the media
    *                             up to its end without having to stop for
    *                             further buffering of content
-   * @return {Object|p5.Element} pointer to video p5.Element
+   * @return {p5.MediaElement|p5.Element} pointer to video p5.Element
    */
   p5.prototype.createVideo = function(src, callback) {
     return createMedia(this, 'video', src, callback);
@@ -913,7 +955,7 @@
    *                             enough data has been loaded to play the media
    *                             up to its end without having to stop for
    *                             further buffering of content
-   * @return {Object|p5.Element} pointer to audio p5.Element
+   * @return {p5.MediaElement|p5.Element} pointer to audio p5.Element
    */
   p5.prototype.createAudio = function(src, callback) {
     return createMedia(this, 'audio', src, callback);
@@ -925,10 +967,33 @@
   p5.prototype.VIDEO = 'video';
   p5.prototype.AUDIO = 'audio';
 
-  navigator.getUserMedia  = navigator.getUserMedia ||
-                            navigator.webkitGetUserMedia ||
-                            navigator.mozGetUserMedia ||
-                            navigator.msGetUserMedia;
+  // from: https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
+  // Older browsers might not implement mediaDevices at all, so we set an empty object first
+  if (navigator.mediaDevices === undefined) {
+    navigator.mediaDevices = {};
+  }
+
+  // Some browsers partially implement mediaDevices. We can't just assign an object
+  // with getUserMedia as it would overwrite existing properties.
+  // Here, we will just add the getUserMedia property if it's missing.
+  if (navigator.mediaDevices.getUserMedia === undefined) {
+    navigator.mediaDevices.getUserMedia = function(constraints) {
+
+      // First get ahold of the legacy getUserMedia, if present
+      var getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+
+      // Some browsers just don't implement it - return a rejected promise with an error
+      // to keep a consistent interface
+      if (!getUserMedia) {
+        return Promise.reject(new Error('getUserMedia is not implemented in this browser'));
+      }
+
+      // Otherwise, wrap the call to the old navigator.getUserMedia with a Promise
+      return new Promise(function(resolve, reject) {
+        getUserMedia.call(navigator, constraints, resolve, reject);
+      });
+    };
+  }
 
   /**
    * <p>Creates a new &lt;video&gt; element that contains the audio/video feed
@@ -1001,7 +1066,6 @@
         cb = arguments[i];
       }
     }
-
     if (navigator.getUserMedia) {
       var elt = document.createElement('video');
 
@@ -1009,11 +1073,20 @@
         constraints = {video: useVideo, audio: useAudio};
       }
 
-      navigator.getUserMedia(constraints, function(stream) {
-        elt.src = window.URL.createObjectURL(stream);
-          if (cb) {
-            cb(stream);
+      navigator.mediaDevices.getUserMedia(constraints)
+      .then( function(stream) {
+        try {
+          if("srcObject" in elt) {
+            elt.srcObject = stream;
+          } else {
+            elt.src = window.URL.createObjectURL(stream);
           }
+        } catch (err) {
+          elt.src = stream;
+        }
+        if (cb) {
+          cb(stream);
+        }
       }, function(e) { console.log(e); });
     } else {
       throw 'getUserMedia not supported in this browser';
@@ -1416,7 +1489,20 @@
    * </code></div>
    */
   p5.Element.prototype.attribute = function(attr, value) {
-    if (typeof value === 'undefined') {
+    //handling for checkboxes and radios to ensure options get
+    //attributes not divs
+    if(this.elt.firstChild != null &&
+    (this.elt.firstChild.type === 'checkbox' ||
+    this.elt.firstChild.type === 'radio')) {
+      if(typeof value === 'undefined') {
+        return this.elt.firstChild.getAttribute(attr);
+      } else {
+        for(var i=0; i<this.elt.childNodes.length; i++) {
+          this.elt.childNodes[i].setAttribute(attr, value);
+        }
+      }
+    }
+    else if (typeof value === 'undefined') {
       return this.elt.getAttribute(attr);
     } else {
       this.elt.setAttribute(attr, value);
@@ -1457,6 +1543,13 @@
    * </code></div>
    */
   p5.Element.prototype.removeAttribute = function(attr) {
+    if(this.elt.firstChild != null &&
+    (this.elt.firstChild.type === 'checkbox' ||
+    this.elt.firstChild.type === 'radio')) {
+      for(var i=0; i<this.elt.childNodes.length; i++) {
+        this.elt.childNodes[i].removeAttribute(attr);
+      }
+    }
     this.elt.removeAttribute(attr);
     return this;
   };
@@ -1641,7 +1734,6 @@
    * @class p5.MediaElement
    * @constructor
    * @param {String} elt DOM node that is wrapped
-   * @param {Object} [pInst] pointer to p5 instance
    */
   p5.MediaElement = function(elt, pInst) {
     p5.Element.call(this, elt, pInst);
@@ -1653,12 +1745,47 @@
     this._cueIDCounter = 0;
     this._cues = [];
     this._pixelDensity = 1;
+    this._modified = false;
 
     /**
      *  Path to the media element source.
      *
      *  @property src
      *  @return {String} src
+     *  @example
+     *  <div><code>
+     *  var ele;
+     *
+     *  function setup() {
+     *    background(250);
+     *
+     *    //p5.MediaElement objects are usually created
+     *    //by calling the createAudio(), createVideo(),
+     *    //and createCapture() functions.
+     *
+     *    //In this example we create
+     *    //a new p5.MediaElement via createAudio().
+     *    ele = createAudio('assets/beat.mp3');
+     *
+     *    //We'll set up our example so that
+     *    //when you click on the text,
+     *    //an alert box displays the MediaElement's
+     *    //src field.
+     *    textAlign(CENTER);
+     *    text("Click Me!", width/2, height/2);
+     *  }
+     *
+     *  function mouseClicked() {
+     *    //here we test if the mouse is over the
+     *    //canvas element when it's clicked
+     *    if(mouseX >= 0 && mouseX <= width &&
+     *      mouseY >= 0 && mouseY <= height) {
+     *      //Show our p5.MediaElement's src field
+     *      alert(ele.src);
+     *    }
+     *  }
+     *
+     *  </code></div>
      */
     Object.defineProperty(self, 'src', {
       get: function() {
@@ -1675,6 +1802,7 @@
         source.src = newValue;
         elt.appendChild(source);
         self.elt.src = newValue;
+        self.modified = true;
       },
     });
 
@@ -1690,10 +1818,44 @@
 
 
   /**
-   * Play an HTML5 media element.
+   *  Play an HTML5 media element.
    *
-   * @method play
-   * @return {Object|p5.Element}
+   *  @method play
+   *  @return {Object|p5.Element}
+   *  @example
+   *  <div><code>
+   *  var ele;
+   *
+   *  function setup() {
+   *    //p5.MediaElement objects are usually created
+   *    //by calling the createAudio(), createVideo(),
+   *    //and createCapture() functions.
+   *
+   *    //In this example we create
+   *    //a new p5.MediaElement via createAudio().
+   *    ele = createAudio('assets/beat.mp3');
+   *
+   *    background(250);
+   *    textAlign(CENTER);
+   *    text("Click to Play!", width/2, height/2);
+   *  }
+   *
+   *  function mouseClicked() {
+   *    //here we test if the mouse is over the
+   *    //canvas element when it's clicked
+   *    if(mouseX >= 0 && mouseX <= width &&
+   *      mouseY >= 0 && mouseY <= height) {
+   *
+   *      //Here we call the play() function on
+   *      //the p5.MediaElement we created above.
+   *      //This will start the audio sample.
+   *      ele.play();
+   *
+   *      background(200);
+   *      text("You clicked Play!", width/2, height/2);
+   *    }
+   *  }
+   *  </code></div>
    */
   p5.MediaElement.prototype.play = function() {
     if (this.elt.currentTime === this.elt.duration) {
@@ -1715,6 +1877,61 @@
    *
    * @method stop
    * @return {Object|p5.Element}
+   * @example
+   * <div><code>
+   *
+   * //This example both starts 
+   * //and stops a sound sample
+   * //when the user clicks the canvas
+   *
+   * //We will store the p5.MediaElement
+   * //object in here
+   * var ele;
+   *
+   * //while our audio is playing,
+   * //this will be set to true
+   * var sampleIsPlaying = false;
+   *
+   * function setup() {
+   *   //Here we create a p5.MediaElement object
+   *   //using the createAudio() function.
+   *   ele = createAudio('assets/beat.mp3');
+   *   background(200);
+   *   textAlign(CENTER);
+   *   text("Click to play!", width/2, height/2);
+   * }
+   *
+   * function mouseClicked() {
+   *   //here we test if the mouse is over the
+   *   //canvas element when it's clicked
+   *   if(mouseX >= 0 && mouseX <= width &&
+   *     mouseY >= 0 && mouseY <= height) {
+   *     background(200);
+   *
+   *     if(sampleIsPlaying) {
+   *       //if the sample is currently playing
+   *       //calling the stop() function on
+   *       //our p5.MediaElement will stop
+   *       //it and reset its current
+   *       //time to 0 (i.e. it will start
+   *       //at the beginning the next time
+   *       //you play it)
+   *       ele.stop();
+   *
+   *       sampleIsPlaying = false;
+   *       text("Click to play!", width/2, height/2);
+   *     } else {
+   *       //loop our sound element until we
+   *       //call ele.stop() on it.
+   *       ele.loop(); 
+   *
+   *       sampleIsPlaying = true;
+   *       text("Click to stop!", width/2, height/2);
+   *     }
+   *   }
+   * }
+   *
+   * </code></div>
    */
   p5.MediaElement.prototype.stop = function() {
     this.elt.pause();
@@ -1727,6 +1944,59 @@
    *
    * @method pause
    * @return {Object|p5.Element}
+   * @example
+   * <div><code>
+   * //This example both starts
+   * //and pauses a sound sample
+   * //when the user clicks the canvas
+   *
+   * //We will store the p5.MediaElement
+   * //object in here
+   * var ele;
+   *
+   * //while our audio is playing,
+   * //this will be set to true
+   * var sampleIsPlaying = false;
+   *
+   * function setup() {
+   *   //Here we create a p5.MediaElement object
+   *   //using the createAudio() function.
+   *   ele = createAudio('assets/lucky_dragons_-_power_melody.mp3');
+   *   background(200);
+   *   textAlign(CENTER);
+   *   text("Click to play!", width/2, height/2);
+   * }
+   *
+   * function mouseClicked() {
+   *   //here we test if the mouse is over the
+   *   //canvas element when it's clicked
+   *   if(mouseX >= 0 && mouseX <= width &&
+   *     mouseY >= 0 && mouseY <= height) {
+   *     background(200);
+   *
+   *     if(sampleIsPlaying) {
+   *       //Calling pause() on our
+   *       //p5.MediaElement will stop it
+   *       //playing, but when we call the
+   *       //loop() or play() functions
+   *       //the sample will start from
+   *       //where we paused it.
+   *       ele.pause();
+   *
+   *       sampleIsPlaying = false;
+   *       text("Click to resume!", width/2, height/2);
+   *     } else {
+   *       //loop our sound element until we
+   *       //call ele.pause() on it.
+   *       ele.loop(); 
+   *
+   *       sampleIsPlaying = true;
+   *       text("Click to pause!", width/2, height/2);
+   *     }
+   *   }
+   * }
+   *
+   * </code></div>
    */
   p5.MediaElement.prototype.pause = function() {
     this.elt.pause();
@@ -1738,6 +2008,53 @@
    *
    * @method loop
    * @return {Object|p5.Element}
+   * @example
+   * <div><code>
+   * //Clicking the canvas will loop
+   * //the audio sample until the user
+   * //clicks again to stop it
+   *
+   * //We will store the p5.MediaElement
+   * //object in here
+   * var ele;
+   *
+   * //while our audio is playing,
+   * //this will be set to true
+   * var sampleIsLooping = false;
+   *
+   * function setup() {
+   *   //Here we create a p5.MediaElement object
+   *   //using the createAudio() function.
+   *   ele = createAudio('assets/lucky_dragons_-_power_melody.mp3');
+   *   background(200);
+   *   textAlign(CENTER);
+   *   text("Click to loop!", width/2, height/2);
+   * }
+   *
+   * function mouseClicked() {
+   *   //here we test if the mouse is over the
+   *   //canvas element when it's clicked
+   *   if(mouseX >= 0 && mouseX <= width &&
+   *     mouseY >= 0 && mouseY <= height) {
+   *     background(200);
+   *
+   *     if(sampleIsLooping == false) {
+   *       //loop our sound element until we
+   *       //call ele.stop() on it.
+   *       ele.loop();
+   *
+   *       sampleIsLooping = true;
+   *       text("Click to stop!", width/2, height/2);
+   *     } else {
+   *       ele.stop();
+   *
+   *       sampleIsLooping = false;
+   *       text("Click to loop!", width/2, height/2);
+   *     }
+   *   }
+   * }
+   *
+   * </code></div>
    */
   p5.MediaElement.prototype.loop = function() {
     this.elt.setAttribute('loop', true);
@@ -1846,12 +2163,14 @@
       this.drawingContext.drawImage(this.elt, 0, 0, this.canvas.width, this.canvas.height);
       p5.Renderer2D.prototype.loadPixels.call(this);
     }
+    this.setModified(true);
     return this;
   }
   p5.MediaElement.prototype.updatePixels =  function(x, y, w, h){
     if (this.loadedmetadata) { // wait for metadata
       p5.Renderer2D.prototype.updatePixels.call(this, x, y, w, h);
     }
+    this.setModified(true);
     return this;
   }
   p5.MediaElement.prototype.get = function(x, y, w, h){
@@ -1868,6 +2187,7 @@
   p5.MediaElement.prototype.set = function(x, y, imgOrCol){
     if (this.loadedmetadata) { // wait for metadata
       p5.Renderer2D.prototype.set.call(this, x, y, imgOrCol);
+      this.setModified(true);
     }
   };
   p5.MediaElement.prototype.copy = function(){
@@ -1875,8 +2195,35 @@
   };
   p5.MediaElement.prototype.mask = function(){
     this.loadPixels();
+    this.setModified(true);
     p5.Image.prototype.mask.apply(this, arguments);
   };
+  /**
+   * helper method for web GL mode to figure out if the element
+   * has been modified and might need to be re-uploaded to texture
+   * memory between frames.
+   * @method isModified
+   * @private
+  * @return {boolean} a boolean indicating whether or not the
+   * image has been updated or modified since last texture upload.
+   */
+  p5.MediaElement.prototype.isModified = function () {
+    return this._modified;
+  }
+  /**
+   * helper method for web GL mode to indicate that an element has been
+   * changed or unchanged since last upload. gl texture upload will
+   * set this value to false after uploading the texture; or might set
+   * it to true if metadata has become available but there is no actual
+   * texture data available yet..
+   * @method setModified
+   * @param {boolean} val sets whether or not the element has been
+   * modified.
+   * @private
+   */
+  p5.MediaElement.prototype.setModified = function (value) {
+    this._modified = value;
+  }
   /**
    *  Schedule an event to be called when the audio or video
    *  element reaches the end. If the element is looping,
@@ -1920,7 +2267,7 @@
    *  This method is meant to be used with the p5.sound.js addon library.
    *
    *  @method  connect
-   *  @param  {AudioNode|p5.sound object} audioNode AudioNode from the Web Audio API,
+   *  @param  {AudioNode|Object} audioNode AudioNode from the Web Audio API,
    *  or an object from the p5.sound library
    */
   p5.MediaElement.prototype.connect = function(obj) {
@@ -2139,7 +2486,6 @@
    * @class p5.File
    * @constructor
    * @param {File} file File that is wrapped
-   * @param {Object} [pInst] pointer to p5 instance
    */
   p5.File = function(file, pInst) {
     /**
