@@ -1,3 +1,6 @@
+### 0.4.2
+- Update p5.js libraries.
+
 ### 0.4.1
 - Resolved issue #32.
 
@@ -15,14 +18,14 @@
 
 ### 0.2.11
 - Add brand new "split view" feature.
-- Add Vue.js dependency
+- Add Vue.js dependency.
 
 ### 0.2.10
-- Add customize port option for `p5 server`
+- Add customize port option for `p5 server`.
 
 ### 0.2.9
-- Add project title animation
-- Add new window button for each project
+- Add project title animation.
+- Add new window button for each project.
 
 ### 0.2.8
 - Add `p5 -v` to show the version of p5-manager.
