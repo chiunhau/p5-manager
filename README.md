@@ -105,6 +105,25 @@ p5 server --port 8888
 p5 s -p 8888
 ```
 
+### Running with Docker
+
+If you don't want to (or can't) install the dependencies on your local machine, you can use the included Dockerfile to build a p5-manager container.
+
+```
+#build the container
+docker build -t p5-manager
+
+# run bash inside the container
+# binding the server and live-reload ports to the host
+# mount /app to the current directory)
+docker run -it -p 5555:5555 -p 35729:35729 -v"$(PWD)":/app p5manager bash
+
+#inside the container...
+cd /app
+p5 server
+```
+
+
 ### Update libraries
 We provide a decent method to update p5 libraries to the latest version:
 
