@@ -115,7 +115,7 @@ $ docker build -t p5-manager
 
 # run bash inside the container
 # binding the server and live-reload ports to the host
-# mount /app to the current directory)
+# mount /app to the current directory
 $ docker run -it -p 5555:5555 -p 35729:35729 -v"$(PWD)":/app p5manager bash
 
 #inside the container...
