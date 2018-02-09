@@ -107,20 +107,20 @@ p5 s -p 8888
 
 ### Running with Docker
 
-If you don't want to (or can't) install the dependencies on your local machine, you can use the included Dockerfile to build a p5-manager container.
+If you don't want to (or can't) install the dependencies on your local machine, you can use the included Dockerfile to build a p5-manager container and run the server from there.
 
 ```
 #build the container
-docker build -t p5-manager
+$ docker build -t p5-manager
 
 # run bash inside the container
 # binding the server and live-reload ports to the host
 # mount /app to the current directory)
-docker run -it -p 5555:5555 -p 35729:35729 -v"$(PWD)":/app p5manager bash
+$ docker run -it -p 5555:5555 -p 35729:35729 -v"$(PWD)":/app p5manager bash
 
 #inside the container...
-cd /app
-p5 server
+$ cd /app
+$ p5 server
 ```
 
 
