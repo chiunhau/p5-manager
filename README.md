@@ -111,7 +111,7 @@ If you don't want to (or can't) install the dependencies on your local machine, 
 
 ```
 # build the container
-$ docker build -t p5-manager
+$ docker build -t p5-manager .
 
 # run bash inside the container
 # binding the server and live-reload ports to the host
