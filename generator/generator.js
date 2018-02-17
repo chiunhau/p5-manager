@@ -132,7 +132,7 @@ var generator = {
 		var option = {
 			url: 'https://api.github.com/repos/processing/p5.js/releases/latest',
 			headers: {
-				'User-Agent': 'chiunhau/p5-manager'
+				'User-Agent': 'chiunhau/p5-manager',
 			}
 		}
 
@@ -202,8 +202,8 @@ function downloadRemoteTemplate(project, owner, repo, branch) {
 					else {
 						var currentFilePath = currentItem.path;
 						var currentFileURL = currentItem.url;
-						url += "?client_id=" + client_id;
-						url += "&client_secret=" + client_secret;
+						currentFileURL += "?client_id=" + client_id;
+						currentFileURL += "&client_secret=" + client_secret;
 						downloadFile(project, currentFilePath, currentFileURL);
 					}
 				}
@@ -222,10 +222,18 @@ function downloadFile(project, filePath, url) {
 	var option = {
 		url: url,
 		headers: {
-			'User-Agent': 'chiunhau/p5-manager'
+			'User-Agent': 'chiunhau/p5-manager',
+			'accept': 'application/vnd.github.VERSION.raw'
 		}
 	}
-	request(option, function(err, resp, json) {
+	var fileExtension = path.extname(filePath).replace(".", "");
+	var isImage = imageExtensions.indexOf(fileExtension) != -1;
+	// if a file is an image then download the base64 version and decode it
+	if (isImage) {
+		option.headers.accept = 'application/vnd.github.VERSION+json';
+	}
+
+	request(option, function(err, resp, fileContent) {
 		if (err) {
 			console.log("Error while downloading the template");
 			console.log("Error: " + err);
@@ -233,20 +241,19 @@ function downloadFile(project, filePath, url) {
 			return;
 		}
 		else {
-			var fileData = JSON.parse(json);
-			var fileEncodedContent = fileData.content;
-			var fileExtension = path.extname(filePath).replace(".", "");
-			if (!fileEncodedContent) {
+			
+			if (!fileContent) {
 				console.log("Error while downloading the template");
 				console.log("Undefined content on file : " + filePath);
 				fs.rmdirSync(project);
 				return;
 			}
 
-			var fileContent = new Buffer(fileEncodedContent, 'base64');
-			if (imageExtensions.indexOf(fileExtension) == -1) {
-				fileContent = fileContent.toString('ascii');
+			if (isImage) {
+				fileContent = JSON.parse(fileContent).content;
+				fileContent = new Buffer(fileContent, 'base64');
 			}
+
 			write(project + '/' + filePath, fileContent);
 		}
 	});
