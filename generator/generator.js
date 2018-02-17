@@ -36,10 +36,26 @@ var generator = {
 
 		mkdir(project, function() {
 			if (opt.bundle) {
-				createLibraries(project)
+				createLibraries(project);
 				write(project + '/sketch.js', templates.sketchjs);
 				write(project + '/index.html', templates.indexhtmlb);
-			} else {
+			}
+			else if (opt.template) {
+				// template info format: owner/repo@branch
+				let templateInfo = opt.template;
+				let regex = /\w+\/\w+(\@\w+)?/i
+				if (!regex.test(templateInfo)) {
+					console.log("Please specify owner and repo !");
+					fs.rmdirSync(project);
+					return;
+				}
+				let owner = templateInfo.split("/")[0];
+				let repo = templateInfo.split("/")[1].split("@")[0];
+				let branch = templateInfo.split("/")[1].split("@")[1];
+				branch = branch ? branch : 'master'; // default value for branch
+				downloadRemoteTemplate(project, owner, repo, branch);
+			}
+			else {
 				var p5rc = JSON.parse(fs.readFileSync('.p5rc', 'utf-8'));
 				p5rc.projects.push(project);
 				write('.p5rc', JSON.stringify(p5rc, null, 2));
@@ -147,6 +163,77 @@ function createLibraries(dirName) {
 		write(dirName + '/libraries/p5.js', libraries.p5js);
 		write(dirName + '/libraries/p5.sound.js', libraries.p5soundjs);
 		write(dirName + '/libraries/p5.dom.js', libraries.p5domjs);
+	});
+}
+
+function downloadRemoteTemplate(project, owner, repo, branch) {
+	var url = `https://api.github.com/repos/${owner}/${repo}/git/trees/${branch}`;
+	// using recursive to get all files in all sub directories
+	url += "?recursive=1";
+	// auth
+	url += "&client_id=c136f0097a93110057d3";
+	url += "&client_secret=b4f537a3dc4fa4003bd13e01eec62b3f1111d83e";
+	var option = {
+		url: url,
+		headers: {
+			'User-Agent': 'chiunhau/p5-manager'
+		}
+	}
+	request(option, function(error, res, body) {
+		if (error) {
+			console.log("Error while downloading the template");
+			console.log("Error: " + error);
+			return;
+		}
+		else {
+			if (res.statusCode == 200) {
+				var data = JSON.parse(body);
+				var items = data.tree;
+				for(var i = 0; i < items.length; i++) {
+					let currentItem = items[i];
+					if (currentItem.type == 'tree') {
+						// this is a directory
+						mkdir(project + '/' + currentItem.path);
+					}
+					else {
+						var currentFilePath = currentItem.path;
+						var currentFileURL = currentItem.url + "?client_id=c136f0097a93110057d3&client_secret=b4f537a3dc4fa4003bd13e01eec62b3f1111d83e";
+						downloadFile(project, currentFilePath, currentFileURL);
+					}
+				}
+			}
+			else {
+				console.log("Error while downloading the template");
+				console.log("Response code: " + res.statusCode);
+			}
+		}
+	});
+}
+
+function downloadFile(project, path, url) {
+	var option = {
+		url: url,
+		headers: {
+			'User-Agent': 'chiunhau/p5-manager'
+		}
+	}
+	request(option, function(err, resp, json) {
+		if (err) {
+			console.log("Error while downloading the template");
+			console.log("Error: " + err);
+			return;
+		}
+		else {
+			var fileEncodedContent = JSON.parse(json).content;
+			if (!fileEncodedContent) {
+				console.log("Error while downloading the template");
+				console.log("Undefined content on file : " + path);
+				return;
+			}
+			var fileContent = new Buffer(fileEncodedContent, 'base64');
+					fileContent = fileContent.toString('ascii');
+			write(project + '/' + path, fileContent);
+		}
 	});
 }
 

@@ -21,6 +21,10 @@ program
 	.alias('g')
 	.option('-e, --es6', 'ES6 template')
 	.option('-b, --bundle', 'Generate a bundled project')
+	.option(
+		'-t, --template <remote>', 
+		'Generate a project with template from a github repo'
+	)
 	.description('Generate a p5 project')
 	.action(function(req, opt) {
 		generator.project(req, opt);
