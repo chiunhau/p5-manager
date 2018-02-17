@@ -38,6 +38,7 @@
     "debug": "~2.2.0",
     "download": "^5.0.2",
     "express": "~4.13.4",
+    "image-extensions": "^1.1.0",
     "livereload": "^0.6.3",
     "morgan": "~1.7.0",
     "request": "^2.74.0",

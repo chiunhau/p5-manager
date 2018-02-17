@@ -2,6 +2,7 @@ var fs = require('fs');
 var path = require('path');
 var request = require('request');
 var download = require('download');
+const imageExtensions = require('image-extensions');
 
 var templates = {
 	sketchjs: loadFile('templates/sketch.js'),
@@ -205,12 +206,14 @@ function downloadRemoteTemplate(project, owner, repo, branch) {
 			else {
 				console.log("Error while downloading the template");
 				console.log("Response code: " + res.statusCode);
+				fs.rmdirSync(project);
+				return;
 			}
 		}
 	});
 }
 
-function downloadFile(project, path, url) {
+function downloadFile(project, filePath, url) {
 	var option = {
 		url: url,
 		headers: {
@@ -221,18 +224,25 @@ function downloadFile(project, path, url) {
 		if (err) {
 			console.log("Error while downloading the template");
 			console.log("Error: " + err);
+			fs.rmdirSync(project);
 			return;
 		}
 		else {
-			var fileEncodedContent = JSON.parse(json).content;
+			var fileData = JSON.parse(json);
+			var fileEncodedContent = fileData.content;
+			var fileExtension = path.extname(filePath).replace(".", "");
 			if (!fileEncodedContent) {
 				console.log("Error while downloading the template");
-				console.log("Undefined content on file : " + path);
+				console.log("Undefined content on file : " + filePath);
+				fs.rmdirSync(project);
 				return;
 			}
+
 			var fileContent = new Buffer(fileEncodedContent, 'base64');
-					fileContent = fileContent.toString('ascii');
-			write(project + '/' + path, fileContent);
+			if (imageExtensions.indexOf(fileExtension) == -1) {
+				fileContent = fileContent.toString('ascii');
+			}
+			write(project + '/' + filePath, fileContent);
 		}
 	});
 }
