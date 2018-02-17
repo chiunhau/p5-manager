@@ -4,6 +4,9 @@ var request = require('request');
 var download = require('download');
 const imageExtensions = require('image-extensions');
 
+var client_id = "c136f0097a93110057d3";
+var client_secret = "b4f537a3dc4fa4003bd13e01eec62b3f1111d83e";
+
 var templates = {
 	sketchjs: loadFile('templates/sketch.js'),
 	indexhtml: loadFile('templates/index.html'),
@@ -172,8 +175,8 @@ function downloadRemoteTemplate(project, owner, repo, branch) {
 	// using recursive to get all files in all sub directories
 	url += "?recursive=1";
 	// auth
-	url += "&client_id=c136f0097a93110057d3";
-	url += "&client_secret=b4f537a3dc4fa4003bd13e01eec62b3f1111d83e";
+	url += "&client_id=" + client_id;
+	url += "&client_secret=" + client_secret;
 	var option = {
 		url: url,
 		headers: {
@@ -198,7 +201,9 @@ function downloadRemoteTemplate(project, owner, repo, branch) {
 					}
 					else {
 						var currentFilePath = currentItem.path;
-						var currentFileURL = currentItem.url + "?client_id=c136f0097a93110057d3&client_secret=b4f537a3dc4fa4003bd13e01eec62b3f1111d83e";
+						var currentFileURL = currentItem.url;
+						url += "?client_id=" + client_id;
+						url += "&client_secret=" + client_secret;
 						downloadFile(project, currentFilePath, currentFileURL);
 					}
 				}
