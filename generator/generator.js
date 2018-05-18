@@ -2,6 +2,10 @@ var fs = require('fs');
 var path = require('path');
 var request = require('request');
 var download = require('download');
+const imageExtensions = require('image-extensions');
+
+var client_id = "<client_id>";
+var client_secret = "<client_secret>";
 
 var templates = {
 	sketchjs: loadFile('templates/sketch.js'),
@@ -36,10 +40,26 @@ var generator = {
 
 		mkdir(project, function() {
 			if (opt.bundle) {
-				createLibraries(project)
+				createLibraries(project);
 				write(project + '/sketch.js', templates.sketchjs);
 				write(project + '/index.html', templates.indexhtmlb);
-			} else {
+			}
+			else if (opt.template) {
+				// template info format: owner/repo@branch
+				let templateInfo = opt.template;
+				let regex = /\w+\/\w+(\@\w+)?/i
+				if (!regex.test(templateInfo)) {
+					console.log("Please specify owner and repo !");
+					fs.rmdirSync(project);
+					return;
+				}
+				let owner = templateInfo.split("/")[0];
+				let repo = templateInfo.split("/")[1].split("@")[0];
+				let branch = templateInfo.split("/")[1].split("@")[1];
+				branch = branch ? branch : 'master'; // default value for branch
+				downloadRemoteTemplate(project, owner, repo, branch);
+			}
+			else {
 				var p5rc = JSON.parse(fs.readFileSync('.p5rc', 'utf-8'));
 				p5rc.projects.push(project);
 				write('.p5rc', JSON.stringify(p5rc, null, 2));
@@ -112,7 +132,7 @@ var generator = {
 		var option = {
 			url: 'https://api.github.com/repos/processing/p5.js/releases/latest',
 			headers: {
-				'User-Agent': 'chiunhau/p5-manager'
+				'User-Agent': 'chiunhau/p5-manager',
 			}
 		}
 
@@ -147,6 +167,95 @@ function createLibraries(dirName) {
 		write(dirName + '/libraries/p5.js', libraries.p5js);
 		write(dirName + '/libraries/p5.sound.js', libraries.p5soundjs);
 		write(dirName + '/libraries/p5.dom.js', libraries.p5domjs);
+	});
+}
+
+function downloadRemoteTemplate(project, owner, repo, branch) {
+	var url = `https://api.github.com/repos/${owner}/${repo}/git/trees/${branch}`;
+	// using recursive to get all files in all sub directories
+	url += "?recursive=1";
+	// auth
+	url += "&client_id=" + client_id;
+	url += "&client_secret=" + client_secret;
+	var option = {
+		url: url,
+		headers: {
+			'User-Agent': 'chiunhau/p5-manager'
+		}
+	}
+	request(option, function(error, res, body) {
+		if (error) {
+			console.log("Error while downloading the template");
+			console.log("Error: " + error);
+			return;
+		}
+		else {
+			if (res.statusCode == 200) {
+				var data = JSON.parse(body);
+				var items = data.tree;
+				for(var i = 0; i < items.length; i++) {
+					let currentItem = items[i];
+					if (currentItem.type == 'tree') {
+						// this is a directory
+						mkdir(project + '/' + currentItem.path);
+					}
+					else {
+						var currentFilePath = currentItem.path;
+						var currentFileURL = currentItem.url;
+						currentFileURL += "?client_id=" + client_id;
+						currentFileURL += "&client_secret=" + client_secret;
+						downloadFile(project, currentFilePath, currentFileURL);
+					}
+				}
+			}
+			else {
+				console.log("Error while downloading the template");
+				console.log("Response code: " + res.statusCode);
+				fs.rmdirSync(project);
+				return;
+			}
+		}
+	});
+}
+
+function downloadFile(project, filePath, url) {
+	var option = {
+		url: url,
+		headers: {
+			'User-Agent': 'chiunhau/p5-manager',
+			'accept': 'application/vnd.github.VERSION.raw'
+		}
+	}
+	var fileExtension = path.extname(filePath).replace(".", "");
+	var isImage = imageExtensions.indexOf(fileExtension) != -1;
+	// if a file is an image then download the base64 version and decode it
+	if (isImage) {
+		option.headers.accept = 'application/vnd.github.VERSION+json';
+	}
+
+	request(option, function(err, resp, fileContent) {
+		if (err) {
+			console.log("Error while downloading the template");
+			console.log("Error: " + err);
+			fs.rmdirSync(project);
+			return;
+		}
+		else {
+			
+			if (!fileContent) {
+				console.log("Error while downloading the template");
+				console.log("Undefined content on file : " + filePath);
+				fs.rmdirSync(project);
+				return;
+			}
+
+			if (isImage) {
+				fileContent = JSON.parse(fileContent).content;
+				fileContent = new Buffer(fileContent, 'base64');
+			}
+
+			write(project + '/' + filePath, fileContent);
+		}
 	});
 }
 
