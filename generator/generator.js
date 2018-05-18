@@ -4,8 +4,8 @@ var request = require('request');
 var download = require('download');
 const imageExtensions = require('image-extensions');
 
-var client_id = "c136f0097a93110057d3";
-var client_secret = "b4f537a3dc4fa4003bd13e01eec62b3f1111d83e";
+var client_id = "<client_id>";
+var client_secret = "<client_secret>";
 
 var templates = {
 	sketchjs: loadFile('templates/sketch.js'),
