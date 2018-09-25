@@ -1,5 +1,5 @@
 ### 0.4.2
-- Update p5.js libraries.
+- Update p5.js libraries to 0.7.2 .
 
 ### 0.4.1
 - Resolved issue #32.
