@@ -1,3 +1,10 @@
+### 0.4.3
+- replace all p5.js & p5.sound.js libraries with latest versions (v0.10.2 & v0.3.11)
+- remove all p5.dom.js libraries (merged into p5.js core as of v0.10.0)
+- remove all p5.dom.js features in generate.js
+- remove all p5.dom.js references in all index.html and index-bundle.html files
+- remove all p5.dom.js references in README.md
+
 ### 0.4.2
 - Update p5.js libraries.
 
