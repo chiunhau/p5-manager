@@ -74,7 +74,6 @@ Which will do something like this:
 #   create : my_project/libraries
 #   create : my_project/libraries/p5.js
 #   create : my_project/libraries/p5.sound.js
-#   create : my_project/libraries/p5.dom.js
 ```
 
 
@@ -114,7 +113,7 @@ $ p5 update
 # or...
 $ p5 u
 ```
-By running this, p5-manager will check the latest release tag of p5.js on github, and download `p5.js`, `p5.dom.js` and `p5.sound.js` to the `libraries` folder in your collection. (This might break your projects since they depends on older p5.js libraries.)
+By running this, p5-manager will check the latest release tag of p5.js on github, and download `p5.js` and `p5.sound.js` to the `libraries` folder in your collection. (This might break your projects since they depends on older p5.js libraries.)
 
 ### .p5rc
 The main purpose of `.p5rc` is to track projects in the collection. Once you generate a project with command `p5 generate`, it will be automatically added to `.p5rc`. Projects listed in the `.p5rc` file would be served in the GUI mode.

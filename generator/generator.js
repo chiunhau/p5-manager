@@ -11,7 +11,6 @@ var templates = {
 
 var libraries = {
 	p5js: loadFile('libraries/p5.js'),
-	p5domjs: loadFile('libraries/p5.dom.js'),
 	p5soundjs: loadFile('libraries/p5.sound.js')
 }
 
@@ -124,9 +123,6 @@ var generator = {
 			download(libPath(obj.tag_name, 'p5.js'), 'libraries').then(() => {
 				console.log('   \033[36mupdated\033[0m : ' + 'p5.js');
 			});
-			download(libPath(obj.tag_name, 'p5.dom.js'), 'libraries').then(() => {
-				console.log('   \033[36mupdated\033[0m : ' + 'p5.dom.js');
-			});
 			download(libPath(obj.tag_name, 'p5.sound.js'), 'libraries').then(() => {
 				console.log('   \033[36mupdated\033[0m : ' + 'p5.sound.js');
 			});
@@ -146,7 +142,6 @@ function createLibraries(dirName) {
 	mkdir(dirName + '/libraries', function() {
 		write(dirName + '/libraries/p5.js', libraries.p5js);
 		write(dirName + '/libraries/p5.sound.js', libraries.p5soundjs);
-		write(dirName + '/libraries/p5.dom.js', libraries.p5domjs);
 	});
 }
 
