@@ -1,3 +1,7 @@
+### 0.4.5
+- Update p5.js library to version `1.1.9`
+- Fix link to GitHub Issues on sketch manager GUI
+
 ### 0.4.4
 - Update p5.js library to version `1.0.0`
 - Update p5.sound.js library to version `0.3.12`
