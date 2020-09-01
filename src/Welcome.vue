@@ -12,7 +12,7 @@
     h3 Need help?
     ol
       li Check the #[a(href='https://github.com/chiunhau/p5-manager/blob/master/README.md' target='_blank') documentation]
-      li Open an #[a(href='https://github.com/chiunhau/p5-manager/blob/master/README.md' target='_blank' ) issue]
+      li Open an #[a(href='https://github.com/chiunhau/p5-manager/issues' target='_blank' ) issue]
 </template>
 
 <script>
