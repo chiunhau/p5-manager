@@ -48,7 +48,7 @@ var generator = {
 			if (opt.bundle) {
 				createLibraries(project);
 				createStyle(project);
-				createJs(project);
+				createJs(project, opt.es6);
 				createOther(project);
 				// write(project + "/sketch.js", templates.sketchjs);
 				write(project + "/index.html", templates.indexhtmlb);
@@ -62,8 +62,8 @@ var generator = {
 				// } else {
 				// 	write(project + "/sketch.js", templates.sketchjs);
 				// }
+				createJs(project, opt.es6);
 				createStyle(project);
-				createJs(project);
 				createOther(project);
 				write(project + "/index.html", templates.indexhtml);
 			}
@@ -171,9 +171,10 @@ function createStyle(dirName) {
 		write(dirName + "/Style/Style.css", Style.css);
 	});
 }
-function createJs(dirName) {
+function createJs(dirName, es6 = false) {
 	mkdir(dirName + "/js", function () {
-		write(dirName + "/js/sketch.js", js.sketchjs);
+		let ext = es6 ? ".es6" : ".js";
+		write(dirName + "/js/sketch" + ext, js.sketchjs);
 	});
 }
 function createOther(dirName) {
