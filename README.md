@@ -10,7 +10,7 @@ p5-manager is a [p5js](https://github.com/processing/p5.js/) template builder an
 $ npm install -g p5-manager
 ```
 
-There are several use case of p5-manager, Before going further, choose the one best describe your requirements and go ahead.
+There are several use case of p5-manager. Before going further, choose the one best describe your requirements and go ahead.
 - I want to handle multiple sketches at the same time. Go check `Collection`.
 - I want livereload or babel auto-compiling to improve my p5.js development experience. Go check `Collection`.
 - I just need a CLI command to easily initialize a new p5 project (with default p5.js libraries in it). Go check `Bundle`.
