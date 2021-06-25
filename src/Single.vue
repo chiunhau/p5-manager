@@ -6,23 +6,23 @@
 </template>
 
 <script>
-  import Vue from 'vue'
-  import VueRouter from 'vue-router'
-  Vue.use(VueRouter);
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+Vue.use(VueRouter);
 
-  import Sidebar from './Sidebar.vue'
-  import Sketch from './Sketch.vue'
+import Sidebar from './Sidebar.vue';
+import Sketch from './Sketch.vue';
 
-  export default {
-    components: {
-      Sidebar,
-      Sketch
-    }
-  }
+export default {
+  components: {
+    Sidebar,
+    Sketch,
+  },
+};
 </script>
 
 <style lang="scss">
-  .single-view {
-    height: 100%;
-  }
+.single-view {
+  height: 100%;
+}
 </style>

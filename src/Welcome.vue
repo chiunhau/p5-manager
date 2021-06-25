@@ -16,66 +16,65 @@
 </template>
 
 <script>
-export default {
-}
+export default {};
 </script>
 
 <style lang="scss">
-  .wrapper {
-    margin: auto;
-    display: inline-block;
-    padding-top: 70px;
-    text-align: left;
+.wrapper {
+  margin: auto;
+  display: inline-block;
+  padding-top: 70px;
+  text-align: left;
 
-    h1 {
-      font-size: 80px;
-      color: #f07;
-      margin-bottom: 0px;
-    }
-
-    code {
-      font-size: 16px;
-      color: #f07;
-      padding: 5px;
-    }
-
-    .magic {
-      position: relative;
-      font-size: 18px;
-      color: #f07;
-      margin-top: -10px;
-      padding-bottom: 15px;
-    }
-
-    h3 {
-      color: #666;
-      margin-top: 40px;
-      margin-bottom: 0px;
-    }
-
-    ol{
-      font-size: 16px;
-      color: #666;
-      padding-left: 0px;
-      margin-top: 0;
-    }
-
-    li {
-      margin-top: 8px;
-    }
-
-    a {
-      color: #f07;
-    }
-
-    p:after {
-      content: "";
-      position: absolute;
-      width: 100%;
-      background-color: #f07;
-      height: 2px;
-      bottom: 0px;
-      left: 0;
-    }
+  h1 {
+    font-size: 80px;
+    color: #f07;
+    margin-bottom: 0px;
   }
+
+  code {
+    font-size: 16px;
+    color: #f07;
+    padding: 5px;
+  }
+
+  .magic {
+    position: relative;
+    font-size: 18px;
+    color: #f07;
+    margin-top: -10px;
+    padding-bottom: 15px;
+  }
+
+  h3 {
+    color: #666;
+    margin-top: 40px;
+    margin-bottom: 0px;
+  }
+
+  ol {
+    font-size: 16px;
+    color: #666;
+    padding-left: 0px;
+    margin-top: 0;
+  }
+
+  li {
+    margin-top: 8px;
+  }
+
+  a {
+    color: #f07;
+  }
+
+  p:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    background-color: #f07;
+    height: 2px;
+    bottom: 0px;
+    left: 0;
+  }
+}
 </style>

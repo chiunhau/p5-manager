@@ -1,41 +1,41 @@
-<template lang="pug">
-  router-view
+<template>
+  <router-view></router-view>
 </template>
 
 <script>
-import VueRouter from 'vue-router'
-import Sidebar from './Sidebar.vue'
-import Sketch from './Sketch.vue'
-import Vue from 'vue'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import Sidebar from './Sidebar.vue';
+import Sketch from './Sketch.vue';
 Vue.use(VueRouter);
 
 export default {
-  data () {
+  data() {
     return {
-      activeProject: ''
-    }
+      activeProject: '',
+    };
   },
   components: {
     Sidebar,
-    Sketch
-  }
-}
+    Sketch,
+  },
+};
 </script>
 
-<style lang="scss">
-  html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    width: 100%;
-    background-color: #fff;
-    font-family: 'Avenir Next', 'Avenir', Helvetica, 'Helvetica Neue', Futura, Arial;
-    text-align: center;
-    overflow: hidden;
-  }
+<style>
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #fff;
+  text-align: center;
+  overflow: hidden;
+}
 
-  .content {
-    width: 100%;
-    height: 100%;
-  }
+.content {
+  width: 100%;
+  height: 100%;
+}
 </style>

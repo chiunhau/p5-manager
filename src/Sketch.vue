@@ -3,39 +3,37 @@
 </template>
 
 <script>
-  import Vue from 'vue'
-  import VueRouter from 'vue-router'
-  Vue.use(VueRouter);
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+Vue.use(VueRouter);
 
-  export default {
-    data() {
-      return {
-      }
+export default {
+  data() {
+    return {};
+  },
+  props: ['project'],
+  computed: {
+    src() {
+      return '/' + this.project + '/index.html';
     },
-    props: ['project', 'propsA'],
-    computed: {
-      src() {
-        return '/' + this.project + '/index.html'
-      }
+  },
+  watch: {
+    project: function () {
+      document.getElementById('single-sketch').focus();
     },
-    watch: {
-      project: function() {
-        document.getElementById('single-sketch').focus();
-      }
-    },
-    mounted: function () {
-      this.$nextTick(function () {
-        document.getElementById('single-sketch').focus();
-      })
-    }
-
-  }
+  },
+  mounted: function () {
+    this.$nextTick(function () {
+      document.getElementById('single-sketch').focus();
+    });
+  },
+};
 </script>
 
 <style lang="scss">
-  iframe {
-    border: none;
-    height: 100%;
-    margin-left: 0px;
-  }
+iframe {
+  border: none;
+  height: 100%;
+  margin-left: 0px;
+}
 </style>

@@ -9,48 +9,45 @@
 </template>
 
 <script>
-  import Vue from 'vue'
-  import VueRouter from 'vue-router'
-  Vue.use(VueRouter);
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+Vue.use(VueRouter);
 
-  import Sidebar from './Sidebar.vue'
-  import Sketch from './Sketch.vue'
+import Sidebar from './Sidebar.vue';
+import Sketch from './Sketch.vue';
 
-  export default {
-    data() {
-      return {
+export default {
+  data() {
+    return {};
+  },
+  computed: {
+    projects() {
+      if (this.$route.params.twoProjects) {
+        return this.$route.params.twoProjects.toString().split('+');
+      } else {
+        return ['', ''];
       }
     },
-    computed: {
-      projects() {
-        if (this.$route.params.twoProjects) {
-          return this.$route.params.twoProjects.toString().split('+')
-        }
-        else {
-          return ['', '']
-        }
-
-      }
-    },
-    components: {
-      Sidebar,
-      Sketch
-    }
-  }
+  },
+  components: {
+    Sidebar,
+    Sketch,
+  },
+};
 </script>
 
 <style lang="scss">
-  .split-view {
+.split-view {
+  width: 50%;
+  height: 100%;
+  float: left;
+
+  .split-view--left {
     width: 50%;
-    height: 100%;
-    float:left;
-
-    .split-view--left {
-      width: 50%;
-    }
-
-    .split-view--right {
-      width: 50%;
-    }
   }
+
+  .split-view--right {
+    width: 50%;
+  }
+}
 </style>
