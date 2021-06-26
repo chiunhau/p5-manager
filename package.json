@@ -4,9 +4,10 @@
   "description": "A p5js template builder and sketch manager. Built for p5js enthusiasts.",
   "main": "p5-manager.js",
   "scripts": {
-    "dev:client": "webpack serve --mode=development",
-    "dev:server": "cd demo && nodemon scripts.js",
-    "build": "webpack --mode=production"
+    "build": "rollup -c",
+    "start": "sirv public --no-clear -s",
+    "dev": "rollup -c -w",
+    "dev:server": "cd demo && nodemon scripts.js"
   },
   "bin": {
     "p5": "bin/p5-manager.js"
@@ -29,44 +30,28 @@
   "author": "Chiun Hau You",
   "license": "MIT",
   "dependencies": {
-    "babel-core": "^6.24.1",
-    "babel-preset-es2015": "^6.9.0",
-    "body-parser": "^1.19.0",
-    "chokidar": "^3.5.2",
     "commander": "^2.9.0",
-    "connect-history-api-fallback": "^1.3.0",
-    "debug": ">=2.6.9",
     "download": "^5.0.2",
     "express": "^4.17.0",
     "livereload": "^0.9.3",
     "morgan": ">=1.9.1",
     "request": "^2.74.0",
-    "serve-favicon": "^2.3.2"
+    "serve-favicon": "^2.3.2",
+    "sirv-cli": "^1.0.12"
   },
   "devDependencies": {
-    "babel-core": "^6.24.1",
-    "babel-loader": "^7.0.0",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-es2015": "^6.24.1",
-    "css-loader": "^5.2.6",
-    "file-loader": "^6.2.0",
-    "jquery": "^3.6.0",
-    "node-sass": "^6.0.1",
+    "@rollup/plugin-commonjs": "^17.0.0",
+    "@rollup/plugin-node-resolve": "^11.0.0",
     "nodemon": "^2.0.7",
-    "prettier": "2.3.1",
-    "pug": "^3.0.2",
-    "pug-loader": "^2.4.0",
-    "pug-plain-loader": "^1.1.0",
-    "sass-loader": "^12.1.0",
-    "vue": "^2.6.14",
-    "vue-cli-plugin-pug": "^2.0.0",
-    "vue-hot-reload-api": "^2.1.0",
-    "vue-loader": "^15.9.7",
-    "vue-router": "^2.8.1",
-    "vue-style-loader": "^4.1.3",
-    "vue-template-compiler": "^2.6.14",
-    "webpack": "^5.40.0",
-    "webpack-cli": "^4.7.2",
-    "webpack-dev-server": "^3.11.2"
+    "prettier": "^2.3.1",
+    "prettier-plugin-svelte": "^2.3.1",
+    "rollup": "^2.3.4",
+    "rollup-plugin-css-only": "^3.1.0",
+    "rollup-plugin-livereload": "^2.0.0",
+    "rollup-plugin-serve-proxy": "^1.1.4",
+    "rollup-plugin-svelte": "^7.0.0",
+    "rollup-plugin-terser": "^7.0.0",
+    "svelte": "^3.38.3",
+    "svelte-spa-router": "^3.2.0"
   }
 }
