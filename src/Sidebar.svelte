@@ -1,6 +1,6 @@
 <script>
   import { onMount } from 'svelte';
-  import { link, push, location } from 'svelte-spa-router';
+  import { push, location } from 'svelte-spa-router';
 
   let isActive = false;
   let loaded = false;
@@ -46,6 +46,16 @@
       {/each}
     </ul>
   {/if}
+
+  <div class="footer">
+    <a href="https://github.com/chiunhau/p5-manager" class="version">
+      p5-manager v1.4.0
+    </a>
+    <br />
+    by
+    <a href="https://twitter.com/chiunhauyou" class="author highlight"
+      >@chiunhauyou</a>
+  </div>
 </div>
 
 <style>
@@ -101,6 +111,17 @@
   }
 
   .sidebar ul li.-active {
+    color: #f07;
+  }
+
+  .sidebar .footer {
+    position: absolute;
+    bottom: 20px;
+    font-size: 13px;
+    color: #333;
+  }
+
+  .highlight {
     color: #f07;
   }
 </style>

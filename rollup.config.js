@@ -8,43 +8,6 @@ import serve from 'rollup-plugin-serve-proxy';
 
 const production = !process.env.ROLLUP_WATCH;
 
-// function serve() {
-// 	let server;
-// 	let p5Server;
-
-// 	function toExit() {
-// 		if (server) server.kill(0);
-// 		if (p5Server) p5Server.kill(0);
-// 	}
-
-// 	return {
-// 		writeBundle() {
-// 			if (server) return;
-// 			if (p5Server) return;
-// 			server = require('child_process').spawn(
-// 				'npm',
-// 				['run', 'start', '--', '--dev'],
-// 				{
-// 					stdio: ['ignore', 'inherit', 'inherit'],
-// 					shell: true,
-// 				}
-// 			);
-
-// 			p5Server = require('child_process').spawn(
-// 				'npm',
-// 				['run', 'dev:p5Server'],
-// 				{
-// 					stdio: ['ignore', 'inherit', 'inherit'],
-// 					shell: true,
-// 				}
-// 			);
-
-// 			process.on('SIGTERM', toExit);
-// 			process.on('exit', toExit);
-// 		},
-// 	};
-// }
-
 export default {
 	input: 'src/main.js',
 	output: {
