@@ -1,3 +1,10 @@
+### 1.4.0
+
+- Bump p5.js to v1.4.0 with p5.sound.js to v1.0.1
+- Refactor: rewrtie GUI with Svelte + Rollup as they are much simpler than Vue + Webpack
+- BREAKING CHANGE: remove Babel live compile as most browsers now support ES6 out-of-the-box
+- BREAKING CHANGE: remove Split View Mode
+
 ### 1.3.1
 
 - Fix decade-old issues and bump p5.js to 1.3.1
