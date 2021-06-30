@@ -1,12 +1,12 @@
 <div class="welcome">
   <div class="wrapper">
-    <h1>Hello</h1>
+    <h1>Hello p5.js</h1>
     <h3>Get started</h3>
     <ol>
       <li><code>$ p5 new COLLECTION_NAME</code> to create a collection</li>
       <li><code>$ p5 generate PROJECT_NAME</code>to generate a p5 project</li>
       <li><code>$ p5 server</code> to start the p5-manager server</li>
-      <li>Go to<code>localhost:5555</code>and you should see this page</li>
+      <li>Go to<code>localhost:5555</code>and have fun with p5.js :)</li>
     </ol>
   </div>
 </div>
