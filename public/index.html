@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<title>p5-manager</title>
+		<style>
+			html,
+			body {
+				margin: 0;
+				padding: 0;
+				height: 100%;
+				width: 100%;
+				background-color: #fff;
+				text-align: center;
+				overflow: hidden;
+			}
+
+			a {
+				text-decoration: none;
+			}
+		</style>
+
+		<link rel="icon" type="image/png" href="/assets/star.png" />
+		<link rel="stylesheet" href="/build/bundle.css" />
+		<script>
+			document.write(
+				'<script src="http://' +
+					(location.host || 'localhost').split(':')[0] +
+					':35729/livereload.js?snipver=1"></' +
+					'script>'
+			);
+		</script>
+		<script>
+			document.addEventListener('LiveReloadDisconnect', function () {
+				setTimeout(function () {
+					window.location.reload();
+				}, 500);
+			});
+		</script>
+		<script defer src="/build/bundle.js"></script>
+	</head>
+	<body></body>
+</html>

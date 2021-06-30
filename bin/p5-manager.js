@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
+var program = require('commander');
 var server = require('../server/server.js');
 var generator = require('../generator/generator.js');
-var program = require('commander');
 var pjson = require('../package.json');
 
 program.option('-v, --version', 'Show version of p5-manager', pjson.version);
