@@ -38,10 +38,12 @@
     <h2>{p5rc.collectionName}</h2>
     <ul>
       {#each p5rc.projects as project}
-        <li
-          on:click="{() => handleRouteChange(`/${project}`)}"
+        <li>
+          <span on:click="{() => handleRouteChange(`/${project}`)}"
           class="{project === $location.slice(1) ? '-active' : ''}">
           {project}
+          <span>
+          <a href="{`/${project}/index.html`}" target="_blank">↗</a>
         </li>
       {/each}
     </ul>
@@ -110,8 +112,12 @@
     cursor: pointer;
   }
 
-  .sidebar ul li.-active {
+  .sidebar ul li span.-active {
     color: #f07;
+  }
+
+  .sidebar ul li a {
+    color: #333;
   }
 
   .sidebar .footer {
