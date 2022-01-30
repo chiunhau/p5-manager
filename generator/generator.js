@@ -25,7 +25,19 @@ var generator = {
 			createLibraries(collection);
 		});
 	},
-	project: function (project, opt) {
+
+	project: function (_project, opt) {
+		var project;
+
+		// if the name of the project is "." (the current folder),
+		// set the name of the project to that of the current folder.
+		// Otherwise, keep the original name.
+		if (opt.bundle && '.' === _project) {
+			project = getParentFolderName();
+		} else {
+			project = _project;
+		}
+
 		templates.indexhtml = templates.indexhtml.replace(
 			'{{project-title}}',
 			project
@@ -35,24 +47,32 @@ var generator = {
 			project
 		);
 
-		mkdir(project, function () {
-			if (opt.bundle) {
-				createLibraries(project);
-				write(project + '/sketch.js', templates.sketchjs);
-				write(project + '/index.html', templates.indexhtmlb);
-			} else {
-				var p5rc = JSON.parse(fs.readFileSync('.p5rc', 'utf-8'));
-				p5rc.projects.push(project);
-				write('.p5rc', JSON.stringify(p5rc, null, 2));
-
-				if (opt.es6) {
-					write(project + '/sketch.es6', templates.sketchjs);
-				} else {
+		// if the name of the project is "." (the current folder),
+		// then the files should be generated without a sub-folder
+		if (!opt.bundle || '.' !== _project) {
+			mkdir(project, function () {
+				if (opt.bundle) {
+					createLibraries(project);
 					write(project + '/sketch.js', templates.sketchjs);
+					write(project + '/index.html', templates.indexhtmlb);
+				} else {
+					var p5rc = JSON.parse(fs.readFileSync('.p5rc', 'utf-8'));
+					p5rc.projects.push(project);
+					write('.p5rc', JSON.stringify(p5rc, null, 2));
+
+					if (opt.es6) {
+						write(project + '/sketch.es6', templates.sketchjs);
+					} else {
+						write(project + '/sketch.js', templates.sketchjs);
+					}
+					write(project + '/index.html', templates.indexhtml);
 				}
-				write(project + '/index.html', templates.indexhtml);
-			}
-		});
+			});
+		} else {
+			createLibraries('.');
+			write('./sketch.js', templates.sketchjs);
+			write('./index.html', templates.indexhtmlb);
+		}
 	},
 
 	// Added by Torben Brams
@@ -162,6 +182,12 @@ function mkdir(path, fn) {
 		console.log('   \033[36mcreate\033[0m : ' + path);
 		fn && fn();
 	});
+}
+
+function getParentFolderName() {
+	// Get the path of the Current Working Directory, and
+	// then strip away all but the name of the current directory
+	return path.basename(process.cwd());
 }
 
 module.exports = generator;

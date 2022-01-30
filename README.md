@@ -70,6 +70,14 @@ p5 generate --bundle PROJECT_NAME
 p5 g -b PROJECT_NAME
 ```
 
+or to generate in the current folder, do this:
+
+```bash
+p5 generate --bundle .
+# or...
+p5 g -b .
+```
+
 Which will do something like this:
 
 ```bash
