@@ -40,3 +40,6 @@ jspm_packages
 .node_repl_history
 # Demo directory
 demo
+
+# Container-generated sketch data
+data

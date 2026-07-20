@@ -95,6 +95,28 @@ p5 server --port 8888
 p5 s -p 8888
 ```
 
+### Use a custom sketches folder
+
+Set `P5_SKETCH_DIR` to a collection directory. Absolute and relative paths are
+supported. If the directory has no `.p5rc`, p5-manager automatically discovers
+each immediate child directory containing an `index.html` file.
+
+```bash
+P5_SKETCH_DIR="/Users/you/Sketches" node bin/p5-manager.js server
+```
+
+To control the collection name, project selection, or order, add an optional
+`/Users/you/Sketches/.p5rc` file such as:
+
+```json
+{
+  "name": "My sketches",
+  "projects": ["particles", "waves"]
+}
+```
+
+Restart the server after adding or removing a project from `.p5rc`.
+
 ### Running with Docker
 
 If you don't want to (or can't) install the dependencies on your local machine, you can use the included Dockerfile to build a p5-manager container and run the server from there.
@@ -111,6 +133,19 @@ $ docker run -it -p 5555:5555 -p 35729:35729 -v"$(PWD)":/app p5manager bash
 # inside the container...
 $ cd /app
 $ p5 server
+```
+
+To serve a collection from the host without copying it into the image, mount
+the folder and point `P5_SKETCH_DIR` at the container path:
+
+```bash
+docker run --rm -it \
+  -p 5555:5555 \
+  -p 35729:35729 \
+  -e P5_SKETCH_DIR=/sketches \
+  -v "/Users/you/Sketches:/sketches:ro" \
+  --name p5-manager \
+  p5-manager
 ```
 
 ### Update libraries

@@ -7,8 +7,41 @@ var livereload = require('livereload');
 var app = express();
 
 var guiPath = path.join(__dirname, '../public');
-var dataPath = path.join(__dirname, '../demo');
+var dataPath = process.env.P5_SKETCH_DIR
+	? path.resolve(process.env.P5_SKETCH_DIR)
+	: path.join(__dirname, '../demo');
 var generatorPath = path.join(__dirname, '../generator');
+
+function loadCollection() {
+	var configPath = path.join(dataPath, '.p5rc');
+
+	if (fs.existsSync(configPath)) {
+		return JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+	}
+
+	var projects = fs.readdirSync(dataPath, { withFileTypes: true })
+		.filter(function (entry) {
+			return entry.isDirectory() &&
+				fs.existsSync(path.join(dataPath, entry.name, 'index.html'));
+		})
+		.map(function (entry) {
+			return entry.name;
+		})
+		.sort(function (a, b) {
+			return a.localeCompare(b);
+		});
+
+	console.log(
+		`No .p5rc found in ${dataPath}; discovered ${projects.length} sketches.`
+	);
+
+	return {
+		name: path.basename(dataPath),
+		projects: projects,
+	};
+}
+
+var p5rc = loadCollection();
 
 app.use(favicon(path.join(guiPath, 'assets/star.png')));
 app.use(logger('dev'));
@@ -25,13 +58,11 @@ app.get('/', function (req, res) {
 });
 
 app.get('/api/p5rc', function (req, res) {
-	var p5rc = JSON.parse(fs.readFileSync(path.join(dataPath, '.p5rc'), 'utf-8'));
 	var projects = p5rc.projects;
 	res.json({ projects: projects, collectionName: p5rc.name });
 });
 
 // Dynamically serve static files for each project
-var p5rc = JSON.parse(fs.readFileSync(path.join(dataPath, '.p5rc'), 'utf-8'));
 p5rc.projects.forEach((project) => {
 	var projectPath = path.join(dataPath, project);
 	console.log(
@@ -54,9 +85,10 @@ app.use('/', express.static(dataPath));
 function run(port) {
 	app.listen(port, function () {
 		console.log(`p5-manager is running at http://localhost:${port}`);
+		console.log(`Serving sketches from ${dataPath}`);
 	});
 
-	livereload.createServer().watch(process.cwd());
+	livereload.createServer().watch(dataPath);
 }
 
 app.use(function (req, res, next) {
