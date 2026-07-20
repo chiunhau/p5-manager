@@ -4,9 +4,9 @@ WORKDIR /app
 
 COPY package*.json ./
 RUN npm install
+# RUN npm run build --production
 
 COPY . .
-RUN npm run build --production
 
 RUN chmod +x bin/p5-manager.js entrypoint.sh
 
