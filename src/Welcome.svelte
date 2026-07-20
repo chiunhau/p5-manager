@@ -1,4 +1,9 @@
+<script>
+  import Navbar from './Navbar.svelte';
+</script>
+
 <div class="welcome">
+  <Navbar /> <!-- Add the Navbar component here -->
   <div class="wrapper">
     <h1>Hello p5.js</h1>
     <h3>Get started</h3>

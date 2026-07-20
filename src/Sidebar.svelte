@@ -1,8 +1,8 @@
 <script>
   import { onMount } from 'svelte';
   import { push, location } from 'svelte-spa-router';
+  export let isSidebarActive = false;
 
-  let isActive = false;
   let loaded = false;
   let p5rc;
 
@@ -11,13 +11,15 @@
     return await response.json();
   };
 
-  function handleToggle() {
-    isActive = !isActive;
-  }
-
   function handleRouteChange(to) {
     push(to);
-    isActive = false;
+  }
+
+  function handleKeyDown(event, action) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      action();
+    }
   }
 
   onMount(async () => {
@@ -30,20 +32,17 @@
   });
 </script>
 
-<div class="sidebar {isActive ? '-active' : ''}">
-  <button class="toggle" on:click="{handleToggle}">
-    <img src="/assets/star.png" alt="star.png" />
-  </button>
+<div class="sidebar {isSidebarActive ? '-active' : ''}">
   {#if loaded}
     <h2>{p5rc.collectionName}</h2>
     <ul>
       {#each p5rc.projects as project}
         <li>
-          <span on:click="{() => handleRouteChange(`/${project}`)}"
-          class="{project === $location.slice(1) ? '-active' : ''}">
-          {project}
-          </span>
-          <a href="{`/${project}/index.html`}" target="_blank">↗</a>
+          <button on:click="{() => handleRouteChange(`/${project}`)}"
+            on:keydown={(e) => handleKeyDown(e, () => handleRouteChange(`/${project}`))}
+            class="{project === $location.slice(1) ? '-active' : ''}">
+            {project}
+          </button>
         </li>
       {/each}
     </ul>
@@ -62,7 +61,7 @@
 
 <style>
   .sidebar {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: -220px;
     width: 220px;
@@ -72,34 +71,12 @@
     text-align: left;
     transition: all 0.5s;
     -webkit-transition: all 0.5s;
-    z-index: 10;
+    z-index: 1000;
     box-sizing: border-box;
   }
 
   .sidebar.-active {
     left: 0;
-  }
-
-  .toggle {
-    position: absolute;
-    top: 10px;
-    right: -40px;
-    background-color: transparent;
-    border: none;
-    transition: all 1s;
-    -webkit-transition: all 1s;
-    z-index: 11;
-    cursor: pointer;
-  }
-
-  .toggle > img {
-    width: 24px;
-  }
-
-  .sidebar.-active .toggle {
-    -ms-transform: rotate(144deg);
-    -webkit-transform: rotate(144deg);
-    transform: rotate(144deg);
   }
 
   .sidebar ul {
@@ -112,12 +89,8 @@
     cursor: pointer;
   }
 
-  .sidebar ul li span.-active {
+  .sidebar ul li button.-active {
     color: #f07;
-  }
-
-  .sidebar ul li a {
-    color: #333;
   }
 
   .sidebar .footer {

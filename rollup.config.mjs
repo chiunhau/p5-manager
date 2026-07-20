@@ -43,7 +43,7 @@ export default {
     !production &&
       serve({
         contentBase: 'public',
-        port: 5000,
+        port: 3000,
       }),
 
     // Watch the `public` directory and refresh the

@@ -6,6 +6,7 @@ COPY package*.json ./
 RUN npm install
 
 COPY . .
+RUN npm run build --production
 
 RUN chmod +x bin/p5-manager.js entrypoint.sh
 
