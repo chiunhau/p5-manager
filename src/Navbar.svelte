@@ -2,6 +2,8 @@
   import { push } from 'svelte-spa-router';
   import { createEventDispatcher } from 'svelte';
 
+  export let isSidebarActive = false;
+
   const dispatch = createEventDispatcher();
 
   function goToHome() {
@@ -11,17 +13,7 @@
   function toggleSidebar() {
     dispatch('toggleSidebar');
   }
-
-  function toggleMenu() {
-      console.log("Toggling sidebar visibility...");
-      dispatch('toggleSidebar'); // Emitting event to toggle sidebar visibility
-    }
   
-  function handleKeyDown(event, callback) {
-    if (event.key === 'Enter' || event.key === ' ') {
-      callback();
-    }
-  }
 </script>
 
 <style>
@@ -34,8 +26,9 @@
     color: #f07;
     position: fixed;
     width: 100%;
+    box-sizing: border-box;
     top: 0;
-    z-index: 1000;
+    z-index: 1100;
   }
 
   .navbar-title {
@@ -55,6 +48,12 @@
 
   .toggle > img {
     width: 24px;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .toggle[aria-expanded='true'] > img {
+    transform: rotate(144deg);
   }
 
   @media (max-width: 768px) {
@@ -73,10 +72,16 @@
 </style>
 
 <div class="navbar">
-  <button class="toggle" on:click={toggleSidebar} on:keydown={(e) => handleKeyDown(e, toggleSidebar)}>
-    <img src="/assets/star.png" alt="star.png" />
+  <button
+    class="toggle"
+    type="button"
+    aria-label={isSidebarActive ? 'Close project menu' : 'Open project menu'}
+    aria-controls="project-menu"
+    aria-expanded={isSidebarActive}
+    on:click={toggleSidebar}>
+    <img src="/assets/star.png" alt="" />
   </button>
-  <button class="navbar-title" on:click={goToHome} on:keydown={(e) => handleKeyDown(e, goToHome)}>
+  <button class="navbar-title" type="button" on:click={goToHome}>
     p5-manager
   </button>
   <div class="navbar-links">

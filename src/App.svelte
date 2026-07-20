@@ -18,7 +18,7 @@
 </script>
 
 <div class="app" class:isSidebarActive>
-  <Navbar on:toggleSidebar={handleToggleSidebar} />
+  <Navbar {isSidebarActive} on:toggleSidebar={handleToggleSidebar} />
   <Sidebar {isSidebarActive} />
   <Router {routes} />
 </div>
@@ -26,6 +26,8 @@
 <style>
   .app {
     height: 100%;
+    box-sizing: border-box;
+    transition: padding-left 0.5s;
   }
 
   .app.isSidebarActive {
